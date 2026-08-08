@@ -3,6 +3,7 @@
 [![Status: unrefereed candidate](https://img.shields.io/badge/status-unrefereed%20candidate-9f6f00)](#status)
 [![Licence: CC0 1.0](https://img.shields.io/badge/original%20content-CC0--1.0-lightgrey)](LICENSE)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE-CODE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21855302.svg)](https://doi.org/10.5281/zenodo.21855302)
 
 **Release:** 0.3-candidate, 8 August 2026  
 **Repository maintainer and publisher:** Ian Pitchford  
@@ -116,3 +117,6 @@ and links do not relicense third-party works. See `LICENSES.md`.
 
 Agents may reuse the exact statements and artefacts, but must preserve the
 candidate status and the assurance distinctions in `AI_INDEX.md`.
+
+The immutable candidate archive is preserved by Zenodo under version DOI
+[`10.5281/zenodo.21855302`](https://doi.org/10.5281/zenodo.21855302).

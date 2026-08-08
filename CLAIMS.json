@@ -5,6 +5,9 @@
   "version": "0.3-candidate",
   "status": "unrefereed-candidate",
   "repository": "https://github.com/ipitchford/bordered-jacobian-foundations",
+  "doi": "10.5281/zenodo.21855302",
+  "concept_doi": "10.5281/zenodo.21855301",
+  "archive_sha256": "5ae16fbf161e41d90c360f9911fa0b2311541e0617e16bf9626ceec4b4340172",
   "claims": [
     {
       "id": "BJ-1",
@@ -37,6 +40,7 @@
     }
   ],
   "evidence": {
+    "availability": "passed",
     "producer_replay": "passed",
     "deep_checks": 93,
     "default_checks": 58,

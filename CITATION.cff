@@ -10,6 +10,14 @@ abstract: >-
   Unrefereed candidate manuscript and exact computational evidence for an
   integral bordered-Jacobian identity for binary-form multiplication.
 license: MIT
+doi: 10.5281/zenodo.21855302
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21855301
+    description: Zenodo concept DOI for all versions
+  - type: doi
+    value: 10.5281/zenodo.21855302
+    description: Zenodo DOI for the exact 0.3-candidate archive
 repository-code: "https://github.com/ipitchford/bordered-jacobian-foundations"
 url: "https://github.com/ipitchford/bordered-jacobian-foundations/releases/tag/v0.3-candidate"
 keywords:
@@ -27,4 +35,5 @@ preferred-citation:
     - name: "Anonymous"
   year: 2026
   version: "0.3-candidate"
+  doi: 10.5281/zenodo.21855302
   notes: "Unrefereed candidate; original non-code content CC0 1.0; code MIT."

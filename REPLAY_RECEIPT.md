@@ -34,3 +34,14 @@ failure paths.
 
 This is a fresh producer-workflow replay. It is not independent reproduction,
 formal verification or peer review.
+
+## Public archive readback
+
+- GitHub candidate tag: `v0.3-candidate` at commit
+  `217f17d9f73e8b5a1bdb8d114bb1003dbed146bc`.
+- Zenodo version DOI: `10.5281/zenodo.21855302`.
+- Zenodo concept DOI: `10.5281/zenodo.21855301`.
+- Candidate ZIP SHA-256:
+  `5ae16fbf161e41d90c360f9911fa0b2311541e0617e16bf9626ceec4b4340172`.
+- The ZIP, PDF and checksum sidecar downloaded from Zenodo were byte-identical
+  to the GitHub release assets.

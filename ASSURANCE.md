@@ -4,7 +4,7 @@ This record keeps publication mechanics separate from mathematical validation.
 
 | Dimension | State | Evidence and boundary |
 |---|---|---|
-| Availability | pending until public release | GitHub release and Zenodo archive will identify the immutable payload |
+| Availability | passed | GitHub release `v0.3-candidate`; Zenodo DOI `10.5281/zenodo.21855302`; downloaded assets match byte for byte |
 | Producer-side replay | passed | 93/93 deep checks; 58/58 normal and optimized checks |
 | Exact arithmetic | passed for encoded checks | SymPy and FLINT; no random sampling or floating point |
 | Failure sensitivity | passed | five deliberate mathematical negative controls were detected |

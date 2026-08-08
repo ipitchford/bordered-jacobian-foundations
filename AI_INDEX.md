@@ -12,7 +12,14 @@ publication_class: unrefereed candidate
 scholarly_attribution: Anonymous
 licence_non_code: CC0-1.0
 licence_code: MIT
-doi: pending at tag creation
+zenodo:
+  record_id: 21855302
+  record_url: https://zenodo.org/records/21855302
+  version_doi: 10.5281/zenodo.21855302
+  concept_doi: 10.5281/zenodo.21855301
+  archive_file: bordered-jacobian-foundations-v0.3-candidate.zip
+  archive_sha256: 5ae16fbf161e41d90c360f9911fa0b2311541e0617e16bf9626ceec4b4340172
+  scope: exact immutable tagged candidate archive
 ```
 
 ## Exact principal statement

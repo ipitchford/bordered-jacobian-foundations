@@ -108,7 +108,7 @@ paper (arXiv:2608.00222) is framework-orthogonal.
 - **PDF manuscript**: bordered_jacobian_foundations.pdf (12 pp.)
 - **Verification suite**: verify_bordered_jacobian.py (+ receipt)
 - **Reports**: NOVELTY.md (search boundary), QUALITY_GATE.md
-- **DOI**: *to be minted on Zenodo at publication*
+- **DOI**: [10.5281/zenodo.21855302](https://doi.org/10.5281/zenodo.21855302)
 - **Status**: Unrefereed candidate; awaiting independent human
   verification. Cross-model adversarial review (GPT-5.6 Sol,
   refute-framed) completed 2026-08-06: the identity and both sign

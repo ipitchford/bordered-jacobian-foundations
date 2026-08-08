@@ -1,0 +1,41 @@
+Environment record — bordered-Jacobian foundations release v0.3-candidate
+Recorded 6 August 2026.
+
+Python        3.13.5 (CPython), venv at ~/.venvs/analysis-py313
+sympy         1.14.0
+python-flint  0.9.0   (FLINT/Arb bindings)
+platform      macOS-26.5.2-arm64-arm-64bit-Mach-O, arm64 (Apple silicon)
+
+TeX           TinyTeX distribution; pdfTeX via latexmk
+              build: latexmk -pdf -interaction=nonstopmode
+                     bordered_jacobian_foundations.tex
+
+Pinned external references
+  Mathlib     leanprover-community/mathlib4, master commit
+              1f0fbd1ad9ff6e4751ab4564fc70cc4f2a1fadf9 (2026-08-06)
+  Lean        google-deepmind/formal-conjectures PR #4474,
+              merged 2026-07-26, commit
+              393aa9ab2403a2fb6f00eabf56fe8bf977a38efa
+
+Replay (clean environment)
+  python3 -m venv v
+  v/bin/pip install -r requirements.txt
+  v/bin/python verify_bordered_jacobian.py           # ~3 s, 58 checks
+  v/bin/python verify_bordered_jacobian.py --deep    # ~7 min, 93 checks
+
+Determinism
+  All arithmetic is exact (symbolic over Q, or integer-polynomial
+  over Z). No floating point, no random sampling, no time- or
+  hardware-dependent branching. Receipts differ between runs only in
+  the reported per-check timings.
+
+Publication-gate replay (8 August 2026)
+  Python        3.14.6
+  sympy         1.14.0
+  python-flint  0.9.0
+  platform      macOS-26.5.2-arm64-arm-64bit-Mach-O, arm64
+  result        58/58 default; 58/58 under python -O; 93/93 deep
+
+The bundled deep receipt was produced under Python 3.13.5. The later
+publication-gate replay is summarized in REPLAY_RECEIPT.md. This is a
+producer-workflow replay, not independent reproduction.

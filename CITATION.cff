@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Please preserve the unrefereed-candidate status and version when citing."
+title: "The bordered Jacobian of binary-form multiplication: an integral foundation for the degree-difference principle"
+type: software
+version: 0.3-candidate
+date-released: 2026-08-08
+authors:
+  - name: "Anonymous"
+abstract: >-
+  Unrefereed candidate manuscript and exact computational evidence for an
+  integral bordered-Jacobian identity for binary-form multiplication.
+license: MIT
+repository-code: "https://github.com/ipitchford/bordered-jacobian-foundations"
+url: "https://github.com/ipitchford/bordered-jacobian-foundations/releases/tag/v0.3-candidate"
+keywords:
+  - algebraic geometry
+  - binary forms
+  - resultant
+  - Sylvester matrix
+  - Koszul complex
+  - Jacobian conjecture
+  - computer-assisted mathematics
+preferred-citation:
+  type: article
+  title: "The bordered Jacobian of binary-form multiplication: an integral foundation for the degree-difference principle"
+  authors:
+    - name: "Anonymous"
+  year: 2026
+  version: "0.3-candidate"
+  notes: "Unrefereed candidate; original non-code content CC0 1.0; code MIT."

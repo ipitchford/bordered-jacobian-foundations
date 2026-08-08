@@ -1,0 +1,37 @@
+name: verify candidate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-replay:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python verify_bordered_jacobian.py
+      - run: python -O verify_bordered_jacobian.py
+      - if: matrix.python-version == '3.13'
+        run: python verify_bordered_jacobian.py --deep
+      - run: shasum -a 256 -c SHA256SUMS
+
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: xu-cheng/latex-action@4.1.0
+        with:
+          root_file: bordered_jacobian_foundations.tex
+          latexmk_use_xelatex: false

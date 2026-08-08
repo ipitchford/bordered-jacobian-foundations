@@ -1,0 +1,1152 @@
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,
+  pdftitle={The bordered Jacobian of binary-form multiplication: an integral foundation for the degree-difference principle},
+  pdfauthor={Anonymous},
+  pdfsubject={Binary-form factorisation spaces and the three-dimensional Keller counterexample},
+  pdfkeywords={Jacobian conjecture, Keller map, binary forms, resultant, Sylvester matrix, Koszul complex, Vandermonde determinant, machine verification}]{hyperref}
+\usepackage{aliascnt}
+\usepackage[nameinlink,capitalise,noabbrev]{cleveref}
+
+\setlength{\textwidth}{6.15in}
+\setlength{\textheight}{9.0in}
+\setlength{\oddsidemargin}{0.18in}
+\setlength{\evensidemargin}{0.18in}
+\setlength{\topmargin}{-0.15in}
+\setlength{\parskip}{2pt}
+\raggedbottom
+
+\newtheorem{theorem}{Theorem}[section]
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+
+\theoremstyle{remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{definition}{Definition}{Definitions}
+\crefname{remark}{Remark}{Remarks}
+
+\newcommand{\A}{\mathbb A}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\Cl}{\operatorname{Cl}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\Vand}{\operatorname{V}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+\title[The bordered Jacobian of binary-form multiplication]
+{The bordered Jacobian of binary-form multiplication:\\
+an integral foundation for the degree-difference principle}
+
+% Replace ``Anonymous'' before public circulation if appropriate.
+\author{Anonymous}
+\date{6 August 2026 (v0.3-candidate)}
+\thanks{Version 0.3-candidate.  Prepared for the Evidence Press
+evidence bundle; the verification suite, receipts, environment
+records, search reports and review correspondence ship with the
+release archive.}
+
+\subjclass[2020]{Primary 13P15; Secondary 14R15, 15A15, 15A54}
+\keywords{Jacobian conjecture, Keller map, binary forms, resultant, Sylvester matrix, Koszul complex, Vandermonde determinant, machine verification}
+
+\begin{document}
+
+\begin{abstract}
+Let $V_d$ denote the binary forms of degree $d$ and let
+$m(A,B)=AB$ be multiplication $V_r\times V_s\to V_{r+s}$.  Writing
+$M$ for the Jacobian matrix of $m$ in coefficient coordinates and
+$\kappa=(a_0,\dots,a_r,-b_0,\dots,-b_s)$ for the relative-scaling
+vector, we prove the \emph{bordered Jacobian identity}: for every row
+vector $v$,
+\[
+ \det\begin{pmatrix}M\\ v\end{pmatrix}
+ =(-1)^{s(r+1)+1}\,\Res(A,B)\,\langle v,\kappa\rangle
+ \qquad\text{in }\Z[a,b,v],
+\]
+valid for all $r,s\ge1$ \emph{including} $r=s$.  The proof is
+elementary: interpolation at the roots plus one auxiliary
+point, a gap-Vandermonde identity, and the product formula.  It uses
+no irreducibility or factoriality input, computes every sign, and,
+although it argues over $\C$, it delivers an integral identity valid
+after arbitrary base change.
+
+Contracting the border against the Euler derivative of any
+bihomogeneous $g$ of weight $(p,q)$ gives
+$\det D(m,g)=(-1)^{s(r+1)+1}(p-q)\,g\Res$.  The choice $g=\Res$
+recovers the degree-difference identity
+$\det D\Phi_{r,s}=(-1)^{s(r+1)}(r-s)\Res^2$ of the July 2026
+release, now over $\Z$; reduction shows $\Phi_{r,s}$ is
+\'etale on the coprime locus over any field in which
+$(s-r)\cdot1$ is invertible.  The choice $g=h\circ m$ gives zero: no function of the
+product can complete the chart.  At $r=s$ the bordered identity does
+not degenerate; the collapse of $\Phi_{r,r}$ is purely the vanishing
+of the Euler weight $s-r$.  In characteristic zero the normalisers
+are classified exactly: $(m,g)$ is \'etale on the whole coprime
+locus if and only if $\delta g=c\Res^n$ for the scaling derivation
+$\delta$, some constant $c\ne0$ and $n\ge1$---equivalently, $g$ is
+a constant multiple of a power of $\Res$ plus an element of
+$\ker\delta$; in characteristic $p$ the same holds when
+$p\nmid n(s-r)$.
+
+An accompanying exact suite verifies the identities of this paper per
+bidegree---the central identity in two separately written
+computational backends (SymPy and FLINT)---through $r+s\le8$ with spot checks to
+$(5,6)$, with negative controls.  We also give a formalization
+blueprint: a monic analogue of the bordered identity is already
+machine-checked inside Mathlib.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The July 2026 release
+\emph{The degree-difference principle and affine slices of binary-form
+factorisation spaces} \cite{DDAS} organised the geometry behind the
+three-dimensional Keller counterexample
+\cite{AlpogeAnnouncement,AnonymousCounterexample} around one
+determinant identity.  For binary forms $A$ of degree $r$ and $B$ of
+degree $s$, with
+\[
+ \Phi_{r,s}:V_r\times V_s\longrightarrow V_{r+s}\times\A^1,
+ \qquad (A,B)\longmapsto\bigl(AB,\Res(A,B)\bigr),
+\]
+it asserted
+\begin{equation}\label{eq:degree-difference}
+ \det D\Phi_{r,s}=(-1)^{s(r+1)}(r-s)\Res(A,B)^2 .
+\end{equation}
+The proof given there ran through two fragile steps: the
+irreducibility of the resultant hypersurface combined with a
+unique-factorisation weight argument, to show the determinant is a
+constant multiple of $\Res^2$; and a hand count of permutation
+inversions at the base point $(X^r,Y^s)$, to pin the constant.  Its
+machine ledger checked the base-point sign matrix and the
+cubic-specific algebra, but not identity
+\eqref{eq:degree-difference} itself at any bidegree.
+
+This release replaces that foundation.  The observation is that
+\eqref{eq:degree-difference} is the shadow of a stronger, simpler, and
+integral statement about multiplication alone.  Order the coefficient
+coordinates as $a_0,\dots,a_r,b_0,\dots,b_s$ and let
+$M$ be the $(r+s+1)\times(r+s+2)$ Jacobian matrix of
+$m(A,B)=AB$.  Let
+\[
+ \kappa=(a_0,\dots,a_r,\,-b_0,\dots,-b_s)
+\]
+be the infinitesimal relative-scaling direction
+$(A,B)\mapsto(\lambda A,\lambda^{-1}B)$, which spans $\ker dm$ on the
+coprime locus.
+
+\begin{theorem}[Bordered Jacobian identity]\label{thm:bordered}
+Let $r,s\ge1$.  For every row vector
+$v=(v_0,\dots,v_{r+s+1})$,
+\[
+ \boxed{\ \det\begin{pmatrix}M\\ v\end{pmatrix}
+ =(-1)^{s(r+1)+1}\,\Res(A,B)\,\langle v,\kappa\rangle\ }
+\]
+as an identity in $\Z[a_0,\dots,b_s,v_0,\dots,v_{r+s+1}]$.
+Equivalently, the signed maximal minors of $M$ satisfy
+\[
+ (-1)^k\det M_{\hat k}
+ =(-1)^{r(s+1)}\,\Res(A,B)\,\kappa_k,
+ \qquad 0\le k\le r+s+1,
+\]
+where $M_{\hat k}$ deletes the $k$-th column.  Both statements hold
+for all $r,s\ge1$, including $r=s$.
+\end{theorem}
+
+The identity should be read as follows: \emph{the top exterior power
+of the multiplication differential is the resultant times the
+contraction of the source volume form along the lost scaling
+direction}.  Every Jacobian obtained by adjoining one scalar function
+to multiplication is then computed by a single pairing.
+
+\begin{corollary}[Contraction principle]\label{cor:contraction}
+Let $g\in\Z[a_0,\dots,b_s]$ and write
+$\Phi_g=(m,g):V_r\times V_s\to V_{r+s}\times\A^1$.  Then
+\[
+ \det D\Phi_g=(-1)^{s(r+1)+1}\,\Res(A,B)\cdot dg(\kappa).
+\]
+If $g$ is bihomogeneous of weight $(p,q)$, meaning
+$g(\lambda A,\mu B)=\lambda^p\mu^q\,g(A,B)$, then
+$dg(\kappa)=(p-q)\,g$ and
+\[
+ \det D\Phi_g=(-1)^{s(r+1)+1}(p-q)\,g\,\Res .
+\]
+\end{corollary}
+
+Three specialisations organise the whole subject.
+
+\begin{enumerate}[leftmargin=2.2em]
+\item \textbf{The degree-difference identity.}  The resultant is
+bihomogeneous of weight $(s,r)$, so $g=\Res$ gives
+$\det D\Phi_{r,s}=(-1)^{s(r+1)+1}(s-r)\Res^2
+=(-1)^{s(r+1)}(r-s)\Res^2$: identity
+\eqref{eq:degree-difference}, now proved over $\Z$
+(\cref{cor:integral-dd}).
+\item \textbf{The pullback obstruction.}  If $g=h\circ m$ factors
+through the product, then $dg(\kappa)=dh(dm(\kappa))=0$, so
+$\det D\Phi_g=0$ identically.  No reparametrisation of the product
+alone can complete multiplication to a nondegenerate chart; the added
+coordinate must break the scaling symmetry
+(\cref{cor:pullback}).
+\item \textbf{The equal-degree collapse, localised.}
+\Cref{thm:bordered} does not degenerate at $r=s$: the minors still
+equal $\pm\Res\cdot\kappa_k$.  What vanishes is the Euler weight
+$s-r$ of the resultant.  The failure of $\Phi_{r,r}$ recorded in
+\cite{DDAS} is thus not a failure of the factorisation geometry; it is
+the statement that at equal degrees the resultant becomes invariant
+under the scaling torus, so its derivative can no longer see the lost
+direction (\cref{rem:equal-degree}).
+\end{enumerate}
+
+Together (1)--(3) address, at the infinitesimal level, a question Tao
+raised when digesting the counterexample---he wrote that he did
+not have ``a completely satisfactory geometric explanation for this
+miracle'' \cite{TaoDigestion}.  Among candidate normalising
+functions, coefficient functionals pair with $\kappa$ to single
+coefficients, which vanish on divisors meeting the coprime locus;
+functions of the product pair to zero; the resultant pairs to
+$(s-r)\Res$, which is nonvanishing on the \emph{entire} coprime locus
+precisely when $r\ne s$.  The resultant is not literally unique in
+this: in characteristic zero the normalisers are exactly the
+$g=c'\Res^n+h$ with $h$ in the kernel of the scaling derivation, and
+only the pullback part of that kernel is absorbed by target
+automorphisms (\cref{prop:normalisers}).  The degree difference is
+the eigenvalue by which each power of the resultant reproduces itself
+under the scaling symmetry.
+
+One limitation must be stated plainly.  In its source context, Tao's
+remark concerns the \emph{global} phenomenon: why the repeated-root
+slice itself is affine three-space.  The present identity explains
+the local \'etaleness and normalisation component of the
+construction; it does not explain that global fact, which rests on
+the slice geometry of \cite{DDAS}.
+
+\subsection*{What is gained over the July proof}
+
+The proof of \cref{thm:bordered} in \cref{sec:proof} is elementary
+linear algebra: interpolation at the roots of $A$ and $B$ plus one
+auxiliary point, a gap-Vandermonde identity, the product formula for
+the resultant, and Zariski density.  In particular:
+
+\begin{itemize}[leftmargin=2.2em]
+\item no irreducibility of the resultant hypersurface is used;
+\item no unique factorisation or normality is used;
+\item every sign is computed, and each signed constant is
+independently machine-verified per bidegree;
+\item the identity lives in $\Z[a,b]$, so reduction modulo $p$ is
+legitimate: $\Phi_{r,s}$ is \'etale on the coprime locus over any
+field of characteristic $p$ if and only if $p\nmid s-r$
+(\cref{cor:char-p}), sharpening the characteristic-$p$ remark of
+\cite{DDAS} into a theorem.
+\end{itemize}
+
+Conceptually, \cref{thm:bordered} is the coordinate form of a
+classical principle: the resultant is the determinant of the
+degree-$(r+s)$ strand of the Koszul complex of $(A,B)$, a construction
+going back to Cayley and developed in modern form by Jouanolou,
+Chardin and Demazure
+\cite{Cayley1848,Jouanolou1991,Chardin1992,Demazure2012,GKZ}.  The
+strand just above the Sylvester strand is exact with one-dimensional
+kernel spanned by $\kappa$, and its determinant is again the
+resultant.  We have not found the bordered form with its two sign laws
+stated in the literature; the search boundary is recorded in
+\cref{sec:provenance}.  We make no claim of essential novelty for the
+principle itself, and every consequence drawn in
+\cref{sec:consequences} either strengthens or re-derives a statement
+of \cite{DDAS} on a firmer footing.
+
+\subsection*{Machine verification and formalization}
+
+The accompanying suite \texttt{verify\_\allowbreak bordered\_\allowbreak jacobian.py}
+verifies
+each identity of this paper per bidegree, exactly over $\Z$ or
+$\Q$, in two separately written computational backends---SymPy symbolic
+determinants and FLINT integer-polynomial arithmetic with
+fraction-free elimination---together with negative controls that
+confirm the checks can fail (\cref{sec:verification}).  The full
+determinant identity is verified for every bidegree with
+$r+s\le8$ and at the spot checks $(4,5)$, $(5,5)$, $(5,6)$; the
+bordered/minor identity, including $r=s$, through $r+s\le7$; the
+base-point sign matrix for all $r,s\le40$.
+
+The path to a complete machine-checked proof is shorter than one
+might expect: Mathlib's \texttt{UniversalFactorizationRing}
+development already proves that the Jacobian matrix of the universal
+monic factorisation presentation \emph{is} the Sylvester matrix up to
+sign---a square truncation of our matrix $M$---and that the universal
+coprime factorisation ring is \'etale over any base
+\cite{MathlibUFR,MathlibResultant}.  The monic normalisation removes
+the scaling direction, so these results are an ingredient rather
+than an instance of \cref{thm:bordered}; the degree-difference
+content itself remains to be formalized.  \Cref{sec:blueprint} states
+the relationship precisely and lists the missing lemmas.
+
+\section{Conventions and elementary lemmas}\label{sec:conventions}
+
+Work over a commutative ring; all identities are in polynomial rings
+over $\Z$ and are proved by verification over $\C$ on a dense open
+set.  Fix coordinates $X,Y$ and write
+$A=\sum_{i=0}^ra_iX^{r-i}Y^i$, $B=\sum_{j=0}^sb_jX^{s-j}Y^j$.
+Dehomogenising by $t=Y/X$ gives
+$a(t)=\sum a_it^i$ and $b(t)=\sum b_jt^j$.  The product
+$C=AB$ has coefficients $c_k=\sum_{i+j=k}a_ib_j$.
+
+\subsection{Sylvester convention}
+$\Res(A,B)$ is the determinant of the $(r+s)\times(r+s)$ matrix whose
+rows are the coefficient vectors of
+$t^ka(t)$ for $0\le k<s$ followed by those of $t^kb(t)$ for
+$0\le k<r$, in the basis $1,t,\dots,t^{r+s-1}$.  Then
+$\Res(X^r,Y^s)=1$, matching \cite{DDAS}.
+
+\subsection{Jacobian data}
+$M$ denotes the $(r+s+1)\times(r+s+2)$ matrix with rows indexed by
+$c_0,\dots,c_{r+s}$ and columns by $a_0,\dots,a_r,b_0,\dots,b_s$:
+\[
+ M[k,i]=\frac{\partial c_k}{\partial a_i}=b_{k-i},
+ \qquad
+ M[k,r+1+j]=\frac{\partial c_k}{\partial b_j}=a_{k-j},
+\]
+with out-of-range subscripts read as zero.  Column indices run from
+$k=0$ (the $a_0$ column) to $k=r+s+1$ (the $b_s$ column).
+
+\subsection{Vandermonde notation}
+For points $x_1,\dots,x_m$ write
+$\Vand(x_1,\dots,x_m)=\prod_{p<q}(x_q-x_p)$.  For
+$0\le k\le m$ let $W_{\hat k}(x_1,\dots,x_m)$ be the $m\times m$
+matrix whose rows are
+$(x_p^{c})_{c\in\{0,\dots,m\}\setminus\{k\}}$.
+
+\begin{lemma}[Gap-Vandermonde]\label{lem:gap-vandermonde}
+$\det W_{\hat k}(x_1,\dots,x_m)=e_{m-k}(x_1,\dots,x_m)\,
+\Vand(x_1,\dots,x_m)$, where $e_j$ is the elementary symmetric
+polynomial.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be an auxiliary variable and consider the full
+$(m+1)\times(m+1)$ Vandermonde matrix on the points
+$(x_1,\dots,x_m,T)$ with powers $0,\dots,m$.  Its determinant is
+\[
+ \Vand(x)\prod_p(T-x_p)
+ =\Vand(x)\sum_k(-1)^{m-k}e_{m-k}(x)\,T^k .
+\]
+Expanding instead along the $T$-row gives
+$\sum_k(-1)^{m+k}T^k\det W_{\hat k}(x)$.  Comparing the coefficients
+of $T^k$ gives the claim.
+\end{proof}
+
+\begin{lemma}[Product formula in this convention]\label{lem:product}
+Suppose $a(t)=a_r\prod_{i=1}^r(t-\alpha_i)$ and
+$b(t)=b_s\prod_{j=1}^s(t-\beta_j)$.  Then
+\[
+ \Res(A,B)=a_r^s\,b_s^r\prod_{i,j}(\beta_j-\alpha_i)
+ =b_s^r\prod_j a(\beta_j)
+ =(-1)^{rs}a_r^s\prod_i b(\alpha_i).
+\]
+\end{lemma}
+
+\begin{proof}
+The transpose of the Sylvester matrix represents
+$\Psi:(u,w)\mapsto ua+wb$ on
+$V_{s-1}\times V_{r-1}\to V_{r+s-1}$ in monomial bases.  Assume the
+$\alpha_i,\beta_j$ are pairwise distinct and $a_rb_s\ne0$; the general
+case follows by density.  Postcompose with evaluation $E$ at the
+$r+s$ points $(\alpha_1,\dots,\alpha_r,\beta_1,\dots,\beta_s)$;
+$\det E=\Vand(\alpha,\beta)$.  In the evaluated basis,
+$(E\Psi)(u,w)$ has value $w(\alpha_i)b(\alpha_i)$ at $\alpha_i$ and
+$u(\beta_j)a(\beta_j)$ at $\beta_j$, so $E\Psi$ is block
+anti-diagonal: an $r\times r$ block
+$\bigl(b(\alpha_i)\alpha_i^{c}\bigr)_{c<r}$ against the $w$-columns and
+an $s\times s$ block
+$\bigl(a(\beta_j)\beta_j^{c}\bigr)_{c<s}$ against the $u$-columns.
+Hence
+\[
+ \det(E\Psi)=(-1)^{rs}\,
+ \Bigl(\prod_ib(\alpha_i)\Bigr)\Vand(\alpha)\,
+ \Bigl(\prod_ja(\beta_j)\Bigr)\Vand(\beta).
+\]
+Dividing by
+$\det E=\Vand(\alpha)\Vand(\beta)\prod_{i,j}(\beta_j-\alpha_i)$
+and substituting
+$\prod_ib(\alpha_i)=b_s^r\prod_{i,j}(\alpha_i-\beta_j)$
+yields the displayed formulas.  At $(A,B)=(X^r,Y^s)$ the matrix is the
+identity, confirming the normalisation.
+\end{proof}
+
+\begin{lemma}[Euler identity]\label{lem:euler}
+$\Res(\lambda A,\mu B)=\lambda^s\mu^r\Res(A,B)$, and consequently
+$d\Res(\kappa)=(s-r)\Res$.  More generally, if $g$ is bihomogeneous of
+weight $(p,q)$ then $dg(\kappa)=(p-q)g$.
+\end{lemma}
+
+\begin{proof}
+Scaling $a$ multiplies the $s$ upper Sylvester rows by $\lambda$;
+scaling $b$ multiplies the $r$ lower rows by $\mu$.  For the second
+claim, write
+$\delta=\sum_ia_i\partial_{a_i}-\sum_jb_j\partial_{b_j}$ for the
+\emph{scaling derivation}, so that $dg(\kappa)=\delta g$ for every
+$g$ by the definition of $\kappa$.  On a monomial of bidegree
+$(p,q)$ in the $a$- and $b$-variables, $\delta$ acts as
+multiplication by the integer $p-q$; hence
+$\delta g=(p-q)\,g$ for bihomogeneous $g$.  This is a formal
+identity of polynomials, valid over any commutative ring.
+\end{proof}
+
+\begin{remark}[Worked example: $(r,s)=(1,1)$]\label{ex:11}
+For $A=a_0X+a_1Y$, $B=b_0X+b_1Y$: the product has coefficients
+$c_0=a_0b_0$, $c_1=a_0b_1+a_1b_0$, $c_2=a_1b_1$;
+$R=a_0b_1-a_1b_0$; $\kappa=(a_0,a_1,-b_0,-b_1)$; and, on the
+column order $(a_0,a_1,b_0,b_1)$,
+\[
+ M=\begin{pmatrix}
+ b_0&0&a_0&0\\
+ b_1&b_0&a_1&a_0\\
+ 0&b_1&0&a_1
+ \end{pmatrix},
+ \qquad \sigma=(-1)^{r(s+1)}=+1 .
+\]
+Deleting the $a_0$ column: $\det M_{\hat0}=a_0R$, so
+$(-1)^0\det M_{\hat0}=\Res\cdot\kappa_0$.  Deleting the
+$b_1$ column: $\det M_{\hat3}=b_1R$, so
+$(-1)^3\det M_{\hat3}=-b_1R=\Res\cdot\kappa_3$.  Bordering by any
+$v$:
+$\det\bigl(\begin{smallmatrix}M\\v\end{smallmatrix}\bigr)
+=-R\,(v_0a_0+v_1a_1-v_2b_0-v_3b_1)$, the case
+$(-1)^{s(r+1)+1}=-1$ of \cref{thm:bordered}.  Every sign convention
+of the paper can be audited on this display.
+\end{remark}
+
+\section{Proof of the bordered Jacobian identity}\label{sec:proof}
+
+By multilinearity of the determinant in the border row $v$, the
+bordered form of \cref{thm:bordered} is equivalent to the minor form:
+expanding along the last row,
+\[
+ \det\begin{pmatrix}M\\e_k\end{pmatrix}
+ =(-1)^{(r+s+1)+k}\det M_{\hat k},
+\]
+and $(-1)^{r+s+1}\cdot(-1)^{r(s+1)}=(-1)^{s(r+1)+1}$, so the two
+displayed sign laws match.  It therefore suffices to prove, for each
+column index $k$,
+\begin{equation}\label{eq:minor}
+ (-1)^k\det M_{\hat k}=(-1)^{r(s+1)}\,\Res(A,B)\,\kappa_k .
+\end{equation}
+Both sides are polynomials in $\Z[a,b]$, so it suffices to verify
+\eqref{eq:minor} on the dense open set
+$U\subset\C^{r+s+2}$ where $a_rb_s\ne0$ and the combined list of
+roots $\alpha_1,\dots,\alpha_r$ of $a$ and $\beta_1,\dots,\beta_s$ of
+$b$ is pairwise distinct, within and across the two lists; $U$ is a
+non-empty Zariski-open set.  For the computation, an auxiliary point
+$\tau\in\C$ is chosen pointwise, distinct from all roots (such
+$\tau$ exist because $\C$ is infinite); $\tau$ enters only through
+the evaluation basis, every $\tau$-dependent factor cancels, and the
+final expressions are independent of $\tau$.
+
+\subsection{Evaluation}
+$M_{\hat k}$ is square of size $r+s+1$.  Change basis on the target
+(row space) by evaluating degree-$(r+s)$ polynomials at the
+$r+s+1$ points $(\alpha_1,\dots,\alpha_r,\beta_1,\dots,\beta_s,\tau)$;
+the change-of-basis determinant is
+$\Vand(\alpha,\beta,\tau)$.  Writing $V_E$ for the evaluation matrix,
+the rows of $V_EM_{\hat k}$ are, by the computation
+$\sum_kx^k\,\partial c_k/\partial a_i=x^ib(x)$ and
+$\sum_kx^k\,\partial c_k/\partial b_j=x^ja(x)$:
+\begin{align*}
+ \text{row }\alpha_i&:\quad
+ b(\alpha_i)\cdot\bigl(\alpha_i^{c}\ \big|\ 0\bigr),
+ &&c\text{ ranging over the surviving $a$-powers},\\
+ \text{row }\beta_j&:\quad
+ a(\beta_j)\cdot\bigl(0\ \big|\ \beta_j^{c}\bigr),
+ &&c\text{ ranging over the surviving $b$-powers},\\
+ \text{row }\tau&:\quad
+ \bigl(b(\tau)\,\tau^{c}\ \big|\ a(\tau)\,\tau^{c}\bigr).
+\end{align*}
+
+\subsection{Splitting the auxiliary row}
+Split the $\tau$-row as
+$(b(\tau)\tau^{c}\,|\,0)+(0\,|\,a(\tau)\tau^{c})$ and expand the
+determinant additively.  In each of the two resulting matrices, count
+rows against columns: if the deleted column $k$ lies in the $b$-block,
+the $a$-block retains $r+1$ columns, which only the $r$ rows
+$\alpha_i$ and possibly the $\tau$-row can match; the term placing
+$\tau$ in the $b$-block therefore has $r+1$ columns to fill with $r$
+rows and vanishes.  Symmetrically, if $k$ lies in the $a$-block, the
+term placing $\tau$ in the $a$-block vanishes.  Exactly one term
+escapes this block-rank vanishing in each case; at special points the
+surviving term may of course itself vanish, exactly when the
+corresponding coefficient does.
+
+\subsection{The \texorpdfstring{$b$}{b}-block case}
+Let $k=r+1+j$ with $0\le j\le s$, so the $b$-column of $b_j$ is
+deleted.  The surviving term is block-diagonal after moving the
+$\tau$-row above the $\beta$-rows, a transposition past $s$ rows
+contributing $(-1)^s$:
+\[
+ \det\bigl(V_EM_{\hat k}\bigr)
+ =(-1)^s\,
+ \Bigl[\prod_ib(\alpha_i)\Bigr]b(\tau)\,\Vand(\alpha,\tau)\cdot
+ \Bigl[\prod_ja(\beta_j)\Bigr]\det W_{\hat\jmath}(\beta),
+\]
+where the $a$-block is the full Vandermonde on
+$(\alpha_1,\dots,\alpha_r,\tau)$ with powers $0,\dots,r$ and the
+$b$-block is the gap matrix of \cref{lem:gap-vandermonde}.  Divide by
+$\Vand(\alpha,\beta,\tau)
+=\Vand(\alpha)\Vand(\beta)\prod_{i,j}(\beta_j-\alpha_i)
+\prod_i(\tau-\alpha_i)\prod_j(\tau-\beta_j)$
+and cancel in three moves:
+$\Vand(\alpha,\tau)=\Vand(\alpha)\prod_i(\tau-\alpha_i)$ absorbs the
+$\alpha$--$\tau$ factors; $b(\tau)=b_s\prod_j(\tau-\beta_j)$ absorbs
+the $\beta$--$\tau$ factors, leaving $b_s$; and
+$\prod_ib(\alpha_i)=(-1)^{rs}b_s^r\prod_{i,j}(\beta_j-\alpha_i)$
+absorbs the mixed factors, leaving $(-1)^{rs}b_s^r$.  With
+$\det W_{\hat\jmath}(\beta)=e_{s-j}(\beta)\Vand(\beta)$
+(\cref{lem:gap-vandermonde}) this collects to
+\[
+ \det M_{\hat k}
+ =(-1)^{s(r+1)}\,b_s\,e_{s-j}(\beta)\cdot
+ b_s^{r}\prod_ja(\beta_j)
+ =(-1)^{s(r+1)}\,b_s\,e_{s-j}(\beta)\,\Res,
+\]
+the last step by the second form of \cref{lem:product}.
+Since $b_j=(-1)^{s-j}b_s\,e_{s-j}(\beta)$, this reads
+$\det M_{\hat k}=(-1)^{s(r+1)}(-1)^{s-j}\,b_j\,\Res$, and hence
+\[
+ (-1)^k\det M_{\hat k}
+ =(-1)^{r+1+j}(-1)^{s(r+1)+s-j}\,b_j\Res
+ =(-1)^{r(s+1)}\,(-b_j)\,\Res
+ =(-1)^{r(s+1)}\,\Res\,\kappa_k .
+\]
+
+\subsection{The \texorpdfstring{$a$}{a}-block case}
+Let $k=i$ with $0\le i\le r$.  Now the term with the $\tau$-row in
+the $b$-block survives, and the row order
+$(\alpha\text{'s},\beta\text{'s},\tau)$ is already block-ordered, so
+no transposition sign appears:
+\[
+ \det\bigl(V_EM_{\hat k}\bigr)
+ =\Bigl[\prod_ib(\alpha_i)\Bigr]\det W_{\hat\imath}(\alpha)\cdot
+ \Bigl[\prod_ja(\beta_j)\Bigr]a(\tau)\,\Vand(\beta,\tau).
+\]
+The same cancellations ($a(\tau)=a_r\prod_i(\tau-\alpha_i)$ now
+supplies the $\prod_i(\tau-\alpha_i)$) give
+\[
+ \det M_{\hat k}
+ =(-1)^{rs}\,a_r\,e_{r-i}(\alpha)\,\Res
+ =(-1)^{rs}(-1)^{r-i}\,a_i\,\Res,
+\]
+whence
+$(-1)^k\det M_{\hat k}=(-1)^{rs+r}\,a_i\Res
+=(-1)^{r(s+1)}\Res\,\kappa_k$, as $\kappa_i=+a_i$.
+
+\subsection{Conclusion}
+Identity \eqref{eq:minor} holds on the dense set $U$, hence in
+$\Z[a,b]$; nothing in the computation distinguished $r=s$.  This
+proves \cref{thm:bordered}.  \qed
+
+\begin{remark}\label{rem:koszul}
+Let $S=\Z[X,Y]$ with its standard grading, and order the Koszul
+generators as $(B,A)$, so that the first differential in degree
+$r+s$ is $M:(\dot A,\dot B)\mapsto\dot AB+\dot BA$ and the second
+is $\kappa$, matching the sign convention
+$\kappa=(A,-B)$.  The matrix
+$\bigl(\begin{smallmatrix}M\\v\end{smallmatrix}\bigr)$ is then the
+degree-$(r+s)$ strand of the Koszul complex of $(A,B)$, based and
+bordered: the strand
+$0\to S_0\xrightarrow{\ \kappa\ }S_r\oplus S_s
+\xrightarrow{\ M\ }S_{r+s}\to0$
+is exact on the coprime locus because the quotient
+$S/(A,B)$ by a coprime pair vanishes in degrees
+above $r+s-2$, and \cref{thm:bordered} says that the determinant of
+this based exact complex---not of any single differential---is the
+resultant, as it is for every strand of degree at least
+$r+s-1$: the Cayley determinant
+\cite{Cayley1848,Jouanolou1991,Chardin1992,Demazure2012}.  The proof
+above is nothing but an explicit basing of that strand by
+interpolation.  The bordering technique itself also has a classical
+antecedent: for $n-1$ generic \emph{linear} forms, Jouanolou proves
+that the signed maximal minors $\Delta_j$ of the coefficient matrix
+are the partial derivatives of the bordered determinant
+$\Res(l_1,\dots,l_{n-1},\lambda)$ and that
+$\Res(l_1,\dots,l_{n-1},f)=f(\Delta)$
+\cite[5.4.1--5.4.4]{Jouanolou1991}---bordered evaluation at the
+Cramer point, with no resultant factor.  Chardin records the scalar
+shadow of the minor form: the resultant divides every maximal minor
+of the degree-$\nu$ first Koszul differential for
+$\nu>\sum_i(d_i-1)$, and is their gcd in the generic case
+\cite[\S IV, Remark~1]{Chardin1992}.  Jouanolou's formulary
+develops a bordered-determinant calculus for square elimination
+matrices---bordering a Macaulay-type matrix by a row $u$ and a
+column $v$ computes the apolarity functional,
+$\det\Theta^*_\nu(f;u,v)=c_\nu(f)\,\omega(\overline{uv})$---and
+gradient-of-resultant identities modulo $R$ for the square system,
+going back to \cite[4.6.3, 6.4.2--6.4.3]{Jouanolou1991}: the
+gradient of $R$ with respect to distinguished coefficients
+reproduces the common zero mod $R$
+\cite[3.10.15, 3.10.25--3.10.31, 3.11.19.23--3.11.19.31]{JouanolouFormulaire}.
+The same corpus contains the square-system counterpart of a
+Jacobian--resultant identity: for $n$ forms in $n$ variables the
+Jacobian determinant with respect to the \emph{variables} satisfies
+$\operatorname{Jac}(f_1,\dots,f_n)\equiv
+d_1\cdots d_n\,\det(f_{ij})$ modulo $(f_1,\dots,f_n)$, and the
+residue functional sends this twisted jacobian to the resultant
+\cite[3.8.1.9, 3.8.2.9]{JouanolouAspects}; the linear case of the
+signed-minor calculus, with $\Delta_i=\partial\Delta/\partial
+U_{1i}$ and a Rees-algebra structure modulo $R$, appears at
+\cite[3.5.5]{JouanolouAspects}.  \Cref{thm:bordered} differs from
+all of these in differentiating with respect to the
+\emph{coefficients} of a \emph{factorisation} map, and in holding
+exactly over $\Z$ rather than modulo the ideal or through the
+residue pairing; there the natural constant is the \emph{product}
+of the degrees, here it is their \emph{difference}.  Against
+Chardin's divisibility statement in particular, it is the upgrade
+from ``$\Res$ divides every maximal minor, and is their gcd
+generically'' to an exact vector identity: each signed minor is
+identified as $\Res$ times the corresponding coordinate of the
+kernel vector, with both sign laws computed, and the Euler pairing
+then produces the degree difference.  We prefer the bordered formulation because it
+computes, in one stroke, every Jacobian in which the missing
+coordinate might be sought.
+\end{remark}
+
+\section{Consequences}\label{sec:consequences}
+
+\begin{corollary}[Integral degree-difference identity]
+\label{cor:integral-dd}
+In $\Z[a_0,\dots,b_s]$,
+\[
+ \det D\Phi_{r,s}=(-1)^{s(r+1)}(r-s)\Res(A,B)^2 .
+\]
+\end{corollary}
+
+\begin{proof}
+Border $M$ with $v=d\Res$ and contract:
+$\det D\Phi_{r,s}=(-1)^{s(r+1)+1}\Res\cdot d\Res(\kappa)
+=(-1)^{s(r+1)+1}(s-r)\Res^2$ by \cref{lem:euler}.
+\end{proof}
+
+\begin{corollary}[{\'Etaleness over fields and over $\Z[1/(s-r)]$}]\label{cor:char-p}
+Over any field $F$, the map $\Phi_{r,s}$ is \'etale at every point
+of the open subscheme $\{\Res\ne0\}$ (all scheme points) if and
+only if
+$(s-r)\cdot1_F\ne0$ in $F$: in characteristic zero, exactly when
+$r\ne s$; in characteristic $p>0$, exactly when
+$p\nmid s-r$.  For $r\ne s$, $\Phi_{r,s}$ is \'etale on the coprime
+locus over $\Z[1/(s-r)]$.
+\end{corollary}
+
+\begin{proof}
+The determinant is a unit times $(r-s)\Res^2$ at such points.
+Conversely, if $(s-r)\cdot1_F=0$ the determinant vanishes identically
+over $F$.
+\end{proof}
+
+\begin{corollary}[Pullback obstruction]\label{cor:pullback}
+If $g=h\circ m$ for any polynomial $h$ on $V_{r+s}$, then
+$\det D(m,g)=0$ identically.  In particular no coefficient of the
+product, and no discriminant-type function of the product, can serve
+as the added coordinate: these fail identically, everywhere.  By
+contrast, a source-coefficient functional such as $a_0$ fails only
+on a divisor (\cref{rem:equal-degree}).
+\end{corollary}
+
+\begin{remark}[Equal degrees]\label{rem:equal-degree}
+At $r=s$ the minor identity survives with sign
+$(-1)^{r(s+1)}=+1$: the \emph{signed} maximal minors
+$(-1)^k\det M_{\hat k}$ equal
+$\Res\cdot\kappa_k$ on the nose, and $M$ has full rank $2r+1$
+wherever $\Res\ne0$.  The equal-degree collapse of
+\eqref{eq:degree-difference} is therefore located entirely in
+\cref{lem:euler}: the resultant has weight $(s,r)=(r,r)$, is
+invariant under the scaling torus, and its Euler pairing with
+$\kappa$ vanishes.  More generally, by \cref{cor:contraction} no
+bihomogeneous $g$ of balanced weight can complete the chart at
+$r=s$, while an unbalanced $g$ such as a single coefficient
+$a_0$ yields $\det D(m,a_0)=\pm a_0\Res$---nondegenerate off a
+divisor, but never on the whole coprime locus, since every
+coefficient vanishes somewhere on it.  The scaling direction at equal
+degrees is invisible to every function natural for the torus action;
+this is the precise infinitesimal content of the statement in
+\cite{DDAS} that $\Phi_{r,r}$ is everywhere degenerate.
+\end{remark}
+
+\begin{proposition}[Classification of normalisers]
+\label{prop:normalisers}
+Let $F$ be a field, $S=F[a_0,\dots,a_r,b_0,\dots,b_s]$,
+$R=\Res(A,B)\in S$, and let
+$\delta=\sum_ia_i\partial_{a_i}-\sum_jb_j\partial_{b_j}$ be the
+scaling derivation, so that
+$\det D(m,g)=(-1)^{s(r+1)+1}R\,\delta g$ for every $g\in S$ by
+\cref{thm:bordered}.  Assume $r\ne s$.
+\begin{enumerate}[leftmargin=2.2em,label=\textup{(\roman*)}]
+\item $(m,g)$ is \'etale at every point of the open subscheme
+$D(R)=\{\Res\ne0\}$ if and only if $\delta g$ is a unit of the
+localisation $S[R^{-1}]$, i.e.\ $\delta g=cR^n$ with
+$c\in F^\times$ and $n\ge1$.
+\item If $\operatorname{char}F=0$, the solutions are exactly
+\[
+ g=\frac{c}{n(s-r)}\,R^n+h,
+ \qquad c\in F^\times,\ n\ge1,\ h\in\ker\delta,
+\]
+and among bihomogeneous $g$ exactly the constant multiples
+$c'R^n$ with $c'\in F^\times$, $n\ge1$.
+\item If $\operatorname{char}F=p>0$, the same description holds for
+those $n$ with $p\nmid n(s-r)$; the choice $g=cR^n$ fails whenever
+$p\mid n(s-r)$, and $\ker\delta$ is spanned by the monomials whose
+$\delta$-weight is divisible by $p$, which in general strictly
+contains the invariants of the scaling torus.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By \cref{cor:contraction}, $(m,g)$ is \'etale throughout
+$D(R)$ if and only if $R\,\delta g$, equivalently $\delta g$, is a
+unit of $\Gamma(D(R),\OO)=S[R^{-1}]$.  Since $S$ is a unique
+factorisation domain and $R$ is irreducible over every field
+(geometric irreducibility over $\Z$: \cite[2.3(iii)]{Jouanolou1991}),
+the units of $S[R^{-1}]$ are $cR^{\Z}$ with $c\in F^\times$; as
+$\delta g\in S$, this gives $\delta g=cR^n$ with $n\ge0$.  The
+derivation $\delta$ preserves the weight decomposition
+$S=\bigoplus_wS_w$ and acts on $S_w$ as multiplication by
+$w\cdot1_F$; in particular the weight-zero component of
+$\delta g$ vanishes, which excludes $n=0$ and proves (i).  Writing
+$g=\sum_wg_w$, the equation $\delta g=cR^n$ reads
+$w\,g_w=cR^n\,[w=n(s-r)]$; when $n(s-r)$ is invertible in
+$F$ this determines $g_{n(s-r)}=cR^n/(n(s-r))$, leaves
+$g_0\in\ker\delta$ free, and forces every other component to
+vanish---and when $p\mid n(s-r)$ there is no solution on that
+component, while $\delta(cR^n)=n(s-r)cR^n=0$.  A bihomogeneous
+$g$ is concentrated in a single weight, which must then be
+$n(s-r)\ne0$.  The description of $\ker\delta$ in characteristic
+$p$ is immediate from the action on monomials.
+\end{proof}
+
+\begin{remark}[The kernel is larger than the pullbacks]
+\label{rem:kernel}
+Only part of the ambiguity $h\in\ker\delta$ is geometrically
+trivial: for a pullback $h=h'\circ m$ the maps $(m,g+h)$ and
+$(m,g)$ differ by the target automorphism
+$(C,z)\mapsto(C,z+h'(C))$, but $\ker\delta$ is strictly larger than
+the pullbacks.  At $r=s=1$, the element $h=a_0b_1-a_1b_0$ satisfies
+$\delta h=0$ and $h^2=c_1^2-4c_0c_2$ is a pullback, while $h$ itself
+is not: it is antisymmetric under the swap
+$(A,B)\mapsto(B,A)$, which fixes every pullback.  For such
+$h$, $(m,g+h)$ has the same Jacobian determinant as $(m,g)$ without
+being obtained from it by a target automorphism.  The same integer
+$s-r$ appears in the \'etaleness criterion, the
+$\mu_{\abs{s-r}}$-torsor, the class group
+$\Z/\abs{s-r}\Z$ and the covering degree
+$\abs{s-r}\binom{r+s}{r}$ of \cite{DDAS} because each of those
+statements consumes the determinant identity or the Euler weight as
+its local input; the global statements themselves are proved by the
+global arguments of \cite{DDAS}, not by the pairing alone.
+\end{remark}
+
+\begin{remark}[Effect on the July release]\label{rem:effect}
+All downstream results of \cite{DDAS} that consumed identity
+\eqref{eq:degree-difference}---\'etaleness of the marked-root map,
+the torsor structure, the classification of linear--quadratic slices,
+and the Euler-characteristic exclusion of higher-degree untrimmed
+slices---now draw their \emph{determinant input} from
+\cref{thm:bordered,lem:euler} alone; their global arguments are
+unchanged and remain as in \cite{DDAS}.  The dependency audit,
+statement by statement (each July item was reread against its text
+for this release):
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+July statement & determinant input consumed & status \\
+\midrule
+Thm.~2.2 (identity) & --- & superseded by \cref{cor:integral-dd} \\
+\'etaleness on $\{\Res\ne0\}$ & the identity & re-proved over $\Z$ (\cref{cor:char-p}) \\
+Prop.~2.4 ($\mu_{\abs{s-r}}$-torsor) & none (Kummer covers) & reread; independent \\
+Prop.~2.5 (generic degree) & torsor count & reread; unchanged \\
+Prop.~2.7, Cor.~2.8 (units, $\Cl$, $\chi_c$) & torsor + localisation & reread; unchanged \\
+Prop.~3.3 (marked-root \'etale) & base change of identity & input replaced \\
+\S\S4--6 (classification, tangent slice) & \'etaleness + slice geometry & reread; input via rows above \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The two inputs the July
+proof of the identity needed (irreducibility of the resultant
+hypersurface; the base-point inversion count) are no longer
+load-bearing \emph{for the identity}: irreducibility remains an input
+to the unit classification used in \cref{prop:normalisers} and in
+the global theory of \cite{DDAS}, and the base-point computation
+survives as a machine-checked consistency anchor.
+\end{remark}
+
+\section{Machine verification}\label{sec:verification}
+
+The suite \texttt{verify\_bordered\_jacobian.py} accompanying this
+release verifies, exactly and with no floating point or sampling,
+the following checks.  The backend of each check is stated.  The two
+backends---SymPy symbolic and FLINT exact integer-polynomial with
+fraction-free elimination---are separately written construction and
+check paths, but they live in one suite, written by the same author
+from the same conventions: they guard against implementation error,
+not against a shared specification error, and their coefficientwise
+cross-comparison applies to the central determinant identity, not to
+every item.  Receipts record package versions, platform and
+per-check timings; the degree bounds are chosen audit boundaries,
+not resource limits, except that $(6,7)$ and beyond were measured
+impractical (the $(5,6)$ spot check runs in about six minutes).
+
+\begin{enumerate}[label=(\Roman*),leftmargin=2.6em]
+\item[(0)] \cref{lem:product} with symbolic roots, for
+$(r,s)\in\{(1,1),(1,2),(2,2),(2,3),(3,3)\}$ [SymPy];
+\item[(0$'$)] the gap-Vandermonde identity of
+\cref{lem:gap-vandermonde} for $2\le m\le5$, all $k$ [SymPy];
+\item \cref{cor:integral-dd} for every bidegree with
+$r+s\le8$ and for $(4,5),(5,5),(5,6)$ [FLINT], and independently for
+$r+s\le5$ [SymPy], with coefficient-identical agreement of the two
+backends for $r+s\le5$;
+\item the minor identity \eqref{eq:minor} with its sign law, for all
+bidegrees with $r+s\le7$ \emph{including} $r=s$ [FLINT];
+\item \cref{cor:contraction} at four bidegrees for six weight cases,
+including three vanishing cases: balanced weight, a linear pullback,
+and a nonlinear pullback $g=c_0^2+c_1$ [FLINT];
+\item the base-point sign matrix for all $1\le r,s\le40$
+($1600$ cases) [FLINT integer matrices];
+\item the forward direction of \cref{cor:char-p} via divisibility of
+every coefficient of $\det D\Phi_{r,s}$ by $p$ for five pairs with
+$p\mid r-s$ [FLINT]; the converse direction is immediate from the
+identity and is not separately tested;
+\item negative controls: a perturbed Jacobian entry, a wrong sign, a
+wrong resultant power, a sign-flipped kernel vector, and transposed
+bidegrees are each detected as failures [FLINT].
+\end{enumerate}
+
+The density step and the all-degree quantifier of
+\cref{thm:bordered} are not machine-checkable by instance testing and
+are not claimed to be.
+
+Two boundaries are declared explicitly.  First, the per-bidegree
+checks certify instances, not the all-degree statement; the
+all-degree statement rests on the proof in \cref{sec:proof}.  Second,
+the ledger of the July release verified the base-point sign matrix
+and the cubic-specific algebra but not identity
+\eqref{eq:degree-difference} itself; the present suite closes that
+gap and supersedes it.  This claim about the July ledger is auditable
+against the archived release \cite{DDAS}: its script
+(\texttt{verify\_\allowbreak degree\_\allowbreak difference\_\allowbreak
+affine\_\allowbreak slices\_\allowbreak final.py}, SHA-256
+\texttt{21dbdc38}\dots\footnote{Full digest:
+\texttt{21dbdc3835302a40ed636e2090f42040d0\allowbreak
+63a669fb1e37ede62d30be8f07834d}.})
+enumerates six checks in its receipt, none of which computes
+$\det D\Phi_{r,s}$ symbolically.
+
+\section{Formalization blueprint}\label{sec:blueprint}
+
+Mathlib (master commit \texttt{1f0fbd1a}, 6 August 2026) contains:
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{2.35in}p{3.35in}@{}}
+\toprule
+This paper & Mathlib analogue \\
+\midrule
+Sylvester matrix, $\Res$ &
+\texttt{Polynomial.sylvester}, \texttt{Polynomial.resultant}
+\cite{MathlibResultant} \\
+$\Res$ unit $\Leftrightarrow$ coprime &
+\texttt{isUnit\_resultant\_iff\_isCoprime} \\
+\cref{lem:product} &
+\texttt{resultant\_eq\_prod\_eval} (monic normalisation) \\
+Jacobian of monic multiplication is the Sylvester matrix (a square
+truncation of $M$; see below) &
+\texttt{universalFactorizationMapPresentation\_}\newline
+\texttt{jacobiMatrix}
+\cite{MathlibUFR} \\
+\'Etaleness of monic coprime factorisation (related background; see
+below) &
+\texttt{UniversalCoprimeFactorizationRing} is \'etale
+\cite{MathlibUFR} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The relationship between the last two rows and the present theorems
+must be stated with care, and is weaker than the word ``chart'' would
+suggest.  The universal monic factorisation map fixes
+$a_r=b_s=1$ and drops the (automatically monic) top coefficient of
+the product; its Jacobian is the square matrix obtained from
+$M$ by deleting the $a_r$ and $b_s$ columns and the $c_{r+s}$ row.
+Mathlib proves this square matrix is the Sylvester matrix, with
+determinant $\pm\Res$, and that the coprime factorisation ring is
+\'etale over any base---\emph{with no degree-difference factor}.
+Indeed the monic multiplication map is \'etale on its coprime locus
+even at $r=s$ (at $(r,s)=(1,1)$ its Jacobian determinant is
+$b_0-a_0=-\Res$), because fixing the leading coefficients removes the
+scaling direction that \cref{thm:bordered} and
+\cref{cor:char-p} are about.  The Mathlib results are therefore an
+ingredient---the machine-checked determinant of the truncated
+matrix---rather than a monic instance of the present statements.
+What remains to formalize for the full \cref{thm:bordered}:
+(i) bihomogeneity of the resultant (row-scaling of
+\texttt{Polynomial.sylvester}); (ii) the Euler identity
+\cref{lem:euler}; (iii) the bordered bookkeeping relating the
+non-monic $(r+s+2)$-column Jacobian, with its resultant row, to the
+truncated Sylvester block.  All three are identities in polynomial
+rings over $\Z$, requiring no schemes and no analysis; (iii) is
+finite linear algebra over $\Z[a,b]$, and it---not the Mathlib
+material---carries the degree-difference content.  The Keller
+disproof itself is already fully formalized: pull request \#4474 to
+the Formal Conjectures repository, merged 26 July 2026 at commit
+\texttt{393aa9a} \cite{LezeauPR}.  A formalized
+\cref{thm:bordered} would therefore not fill a gap in the formal
+disproof; it would add a machine-checked \emph{factorisation-space
+explanation} of the determinant that the disproof verifies
+directly.
+
+\section{Provenance, priority and scope}\label{sec:provenance}
+
+The Keller counterexample was announced by Alp\"oge on 20 July 2026,
+crediting Fable for the construction
+\cite{AlpogeAnnouncement,AnonymousCounterexample}; Gallagher exhibited
+an infinite family and Speyer a tangent-sweep geometric account in the
+same week, with expositions by Levinson and Tao
+\cite{SpeyerThread,LevinsonGeometry,TaoDigestion}.  Gao has since
+generalised the tangent-sweep mechanism to all dimensions
+$\ge3$ \cite{Gao2026}; that framework is disjoint from the
+factorisation-space approach considered here.  The determinant
+identity \eqref{eq:degree-difference} was stated and proved for all
+bidegrees, over $\C$ and with the two inputs discussed above, in the
+July release \cite{DDAS}; the public threads contain the class-group
+observations of Skooi and Mondal cited there, but neither the
+identity nor its bordered refinement.  The
+$(r,s)=(1,2)$ case, with the same sign, appears as an explicit
+polynomial identity in Lou's derivation note of 20 July 2026
+\cite[Lemma~1]{Lou2026}; the all-degree statement and the
+degree-difference factor are the July release's.  Adjacent
+determinantal literature on binary forms includes the Jacobian ideal
+of the binary discriminant \cite{DAndreaChipalkatti2007}.
+
+The mathematical core of \cref{thm:bordered}---the resultant as the
+determinant of any sufficiently high strand (degree at least
+$r+s-1$) of the Koszul complex of two binary forms---is classical: Cayley's 1848 construction, developed by
+Jouanolou and Chardin, with textbook treatments by Demazure and by
+Gelfand--Kapranov--Zelevinsky
+\cite{Cayley1848,Jouanolou1991,Chardin1992,Demazure2012,GKZ}.  The
+full texts of \cite{Jouanolou1991}, \cite{JouanolouAspects},
+\cite{JouanolouFormulaire} and \cite{Chardin1992} were audited for
+this release (6 August 2026).  None contains a strand determinant above the
+Sylvester degree for two binary forms, the exact identification of
+the signed minors as $\Res\cdot\kappa_k$, the sign laws, the
+$\Res^2$ Jacobian, or the degree-difference factor.  Their nearest
+contents, catalogued in \cref{rem:koszul}, are: the linear-forms
+bordered-evaluation principle \cite[5.4.1--5.4.4]{Jouanolou1991};
+gradient-of-resultant identities modulo $R$ for the square
+elimination system \cite[4.6.3, 6.4.2--6.4.3]{Jouanolou1991},
+developed further in \cite[3.10.15, 3.10.31]{JouanolouFormulaire};
+the bordered Macaulay-matrix calculus computing the apolarity
+functional \cite[3.10.25--3.10.30,
+3.11.19.23--3.11.19.31]{JouanolouFormulaire}; determinantal-ideal
+computations for two binary forms \emph{below} the Sylvester degree
+\cite[3.11.18.18--3.11.18.35]{JouanolouFormulaire}; the
+twisted-jacobian identities and the linear-case signed-minor
+calculus \cite[3.5.5, 3.8.1.9, 3.8.2.9]{JouanolouAspects}; and
+Chardin's divisibility/gcd remark
+\cite[\S IV, Remark~1]{Chardin1992}.
+Within these audits and a bounded search of the remaining sources,
+the public discussion, and current literature databases, we did not
+find the bordered coordinate form with its sign laws
+$(-1)^{r(s+1)}$, $(-1)^{s(r+1)+1}$, the uniform treatment of
+$r=s$, or the contraction-principle derivation of
+\eqref{eq:degree-difference}.  We therefore claim as contributions of
+this release: a complete elementary integral proof of
+\cref{thm:bordered} with all signs computed; the derivation of the
+degree-difference identity, the characteristic-$p$ criterion, the
+pullback obstruction and the equal-degree localisation from that
+single statement; the two-backend verification suite with
+negative controls; and the formalization blueprint.  We claim no
+priority over the classical strand principle.  The antecedent
+questions for all four primary classical sources ---
+\cite{Jouanolou1991}, \cite{JouanolouAspects},
+\cite{JouanolouFormulaire} and \cite{Chardin1992} --- are settled
+by the full-text audits described above.  The differential content
+of the corpus (jacobian and Fitting ideals of the resultant
+hypersurface \cite[3.5.3--3.5.4]{JouanolouAspects}; modulo-$R$
+gradient congruences \cite[3.7.1]{JouanolouAspects}; the twisted
+jacobian \cite[3.8]{JouanolouAspects}) is square-system material,
+differentiating with respect to the variables or working modulo
+$R$ or through the residue pairing; it contains neither the
+bordered form nor the exact coefficient-side identity.  One
+reading-scope note: within \cite{Jouanolou1991}, \S\S4.6 and 6.4
+are known to us through the corpus's own citations
+(\cite[3.5.4, 3.7.1.4]{JouanolouAspects},
+\cite[3.10.15]{JouanolouFormulaire}) rather than by direct
+reading.  The bounded-search qualification now applies only to the
+literature beyond this corpus.
+
+\subsection*{Attribution}
+This manuscript, its proofs and its verification suite were produced
+by AI systems (Anthropic Claude, with the July release produced
+jointly with OpenAI Codex) operating under human direction, as part
+of the Evidence Press programme.  The status of this release is:
+unrefereed candidate, awaiting independent verification.
+
+\begingroup
+\footnotesize
+\setlength{\parskip}{0pt}
+\begin{thebibliography}{99}
+
+\bibitem{AlpogeAnnouncement}
+L.~Alp\"oge,
+\emph{\href{https://x.com/__alpoge__/status/2079028340955197566}
+{Hello there the Jacobian conjecture is false}},
+public announcement on X, 20 July 2026.
+
+\bibitem{AnonymousCounterexample}
+Anonymous,
+\emph{\href{https://www.ulam.ai/research/jacobian.pdf}
+{A counterexample to the Jacobian conjecture}},
+manuscript dated 20 July 2026.
+
+\bibitem{Cayley1848}
+A.~Cayley,
+\emph{On the theory of elimination},
+Cambridge and Dublin Mathematical Journal \textbf{3} (1848), 116--120.
+
+\bibitem{Chardin1992}
+M.~Chardin,
+\emph{The resultant via a Koszul complex},
+in: Computational Algebraic Geometry (MEGA 1992),
+Progr. Math. \textbf{109}, Birkh\"auser, 1993, 29--39.
+
+\bibitem{DDAS}
+Anonymous,
+\emph{\href{https://doi.org/10.5281/zenodo.21647593}
+{The degree-difference principle and affine slices of binary-form
+factorisation spaces}},
+Evidence Press release, 27 July 2026.
+DOI: 10.5281/zenodo.21647593.
+
+\bibitem{DAndreaChipalkatti2007}
+C.~D'Andrea and J.~Chipalkatti,
+\emph{On the Jacobian ideal of the binary discriminant} (with an
+appendix by A.~Abdesselam),
+Collect. Math. \textbf{58} (2007), 155--180.
+
+\bibitem{Demazure2012}
+M.~Demazure,
+\emph{R\'esultant, discriminant},
+Enseign. Math. (2) \textbf{58} (2012), 333--373.
+
+\bibitem{Gao2026}
+S.~Gao,
+\emph{\href{https://arxiv.org/abs/2608.00222}
+{Counterexamples to the Jacobian conjecture in dimensions greater
+than two}},
+arXiv:2608.00222, August 2026.
+
+\bibitem{GKZ}
+I.~M. Gelfand, M.~M. Kapranov and A.~V. Zelevinsky,
+\emph{Discriminants, Resultants, and Multidimensional Determinants},
+Birkh\"auser, 1994.
+
+\bibitem{Jouanolou1991}
+J.-P. Jouanolou,
+\emph{Le formalisme du r\'esultant},
+Adv. Math. \textbf{90} (1991), 117--263.
+
+\bibitem{JouanolouAspects}
+J.-P. Jouanolou,
+\emph{Aspects invariants de l'\'elimination},
+Adv. Math. \textbf{114} (1995), 1--174.
+
+\bibitem{JouanolouFormulaire}
+J.-P. Jouanolou,
+\emph{Formes d'inertie et r\'esultant: un formulaire},
+Adv. Math. \textbf{126} (1997), 119--250.
+
+\bibitem{LevinsonGeometry}
+J.~Levinson,
+\emph{\href{https://levjake.wordpress.com/2026/07/22/the-jacobian-conjecture-counterexample/}
+{The Jacobian conjecture counterexample, via classical projective
+geometry}},
+22 July 2026.
+
+\bibitem{LezeauPR}
+P.~Lezeau,
+\emph{\href{https://github.com/google-deepmind/formal-conjectures/pull/4474}
+{feat: add Jacobian disproof}},
+pull request \#4474, google-deepmind/formal-conjectures, merged
+26 July 2026, commit \texttt{393aa9ab2403a2fb}.
+
+\bibitem{Lou2026}
+A.~Lou,
+\emph{\href{https://aaronlou.com/jacobian_counterexample_derivation.pdf}
+{Deriving an explicit polynomial counterexample to the Jacobian
+conjecture}},
+note dated 20 July 2026 (accessed 6 August 2026).
+
+\bibitem{MathlibResultant}
+Mathlib contributors,
+\emph{\href{https://leanprover-community.github.io/mathlib4_docs/Mathlib/RingTheory/Polynomial/Resultant/Basic.html}
+{Mathlib.RingTheory.Polynomial.Resultant.Basic}},
+Mathlib4, accessed 6 August 2026.
+
+\bibitem{MathlibUFR}
+Mathlib contributors,
+\emph{\href{https://leanprover-community.github.io/mathlib4_docs/Mathlib/RingTheory/Polynomial/UniversalFactorizationRing.html}
+{Mathlib.RingTheory.Polynomial.UniversalFactorizationRing}},
+Mathlib4, accessed 6 August 2026.
+
+\bibitem{SpeyerThread}
+D.~Speyer and contributors,
+\emph{\href{https://sbseminar.wordpress.com/2026/07/20/the-new-counterexample-to-the-jacobian-conjecture/}
+{The new counterexample to the Jacobian conjecture}},
+Secret Blogging Seminar, 20--24 July 2026.
+
+\bibitem{TaoDigestion}
+T.~Tao,
+\emph{\href{https://terrytao.wordpress.com/2026/07/21/a-digestion-of-the-jacobian-conjecture-counterexample/}
+{A digestion of the Jacobian conjecture counterexample}},
+21 July 2026, including comment thread.
+
+\end{thebibliography}
+\endgroup
+
+\end{document}

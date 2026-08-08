@@ -1,0 +1,20 @@
+{
+  "title": "The bordered Jacobian of binary-form multiplication: an integral foundation for the degree-difference principle",
+  "description": "Unrefereed candidate manuscript and exact evidence package for an integral bordered-Jacobian identity for binary-form multiplication. Producer-side replay passes; independent reproduction, full formal verification and editorial peer review are not claimed.",
+  "creators": [
+    {"name": "Anonymous"}
+  ],
+  "license": "cc-zero",
+  "keywords": [
+    "binary forms",
+    "resultant",
+    "Sylvester matrix",
+    "Koszul complex",
+    "Jacobian conjecture",
+    "computer-assisted mathematics",
+    "unrefereed candidate"
+  ],
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "access_right": "open"
+}

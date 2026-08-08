@@ -1,0 +1,8 @@
+8e839f6 2026-08-06 v0.3.1: regenerate SHA256SUMS after Makefile check target
+dcf6b29 2026-08-06 v0.3: action external developmental review; ship full evidence bundle
+5f41202 2026-08-06 v0.2.4: complete the classical-corpus audit with Aspects invariants (1995)
+c36b1d1 2026-08-06 v0.2.3: close the Jouanolou 1997 formulary audit; correct the 1991 audit claim
+78e83c1 2026-08-06 v0.2.2: close the Chardin 1992 antecedent question by full-text audit
+48ada8f 2026-08-06 v0.2.1: close the Jouanolou 1991 antecedent question by full-text audit
+54f28d4 2026-08-06 v0.2: apply cross-model adversarial review (GPT-5.6 Sol, refute-framed)
+e16e288 2026-08-06 Bordered Jacobian foundations release: manuscript, dual-implementation verification suite, gate reports

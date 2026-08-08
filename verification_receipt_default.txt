@@ -1,0 +1,74 @@
+Product formula in this Sylvester convention (symbolic roots):
+  [PASS] (0) product formula in-convention (r,s)=(1,1)  (0.0s)
+  [PASS] (0) product formula in-convention (r,s)=(1,2)  (0.0s)
+  [PASS] (0) product formula in-convention (r,s)=(2,2)  (0.0s)
+  [PASS] (0) product formula in-convention (r,s)=(2,3)  (0.1s)
+  [PASS] (0) product formula in-convention (r,s)=(3,3)  (0.8s)
+Gap-Vandermonde lemma (symbolic):
+  [PASS] (0') gap-Vandermonde m=2, all k  (0.0s)
+  [PASS] (0') gap-Vandermonde m=3, all k  (0.0s)
+  [PASS] (0') gap-Vandermonde m=4, all k  (0.1s)
+  [PASS] (0') gap-Vandermonde m=5, all k  (0.7s)
+Full determinant identity, FLINT path:
+  [PASS] (I) full identity FLINT (r,s)=(1,1)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(1,2)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(2,1)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(1,3)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(2,2)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(3,1)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(1,4)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(2,3)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(3,2)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(4,1)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(1,5)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(2,4)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(3,3)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(4,2)  (0.0s)
+  [PASS] (I) full identity FLINT (r,s)=(5,1)  (0.0s)
+Full determinant identity incl. r=s, SymPy path:
+  [PASS] (I) full identity SymPy (r,s)=(1,1)  (0.0s)
+  [PASS] (I) full identity SymPy (r,s)=(1,2)  (0.0s)
+  [PASS] (I) full identity SymPy (r,s)=(2,1)  (0.0s)
+  [PASS] (I) full identity SymPy (r,s)=(1,3)  (0.1s)
+  [PASS] (I) full identity SymPy (r,s)=(2,2)  (0.4s)
+  [PASS] (I) full identity SymPy (r,s)=(3,1)  (0.1s)
+Minor identity with sign law, incl. r=s, FLINT path:
+  [PASS] (II) minor identity FLINT (r,s)=(1,1) incl. sign law  (sigma=+1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(1,2) incl. sign law  (sigma=-1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(2,1) incl. sign law  (sigma=+1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(1,3) incl. sign law  (sigma=+1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(2,2) incl. sign law  (sigma=+1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(3,1) incl. sign law  (sigma=+1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(1,4) incl. sign law  (sigma=-1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(2,3) incl. sign law  (sigma=+1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(3,2) incl. sign law  (sigma=-1, 0.0s)
+  [PASS] (II) minor identity FLINT (r,s)=(4,1) incl. sign law  (sigma=+1, 0.0s)
+Bihomogeneous contraction corollary:
+  [PASS] (III) bihomogeneous contraction corollary (r,s)=(1,2)  (6 weight cases incl. three vanishing (balanced, linear + nonlinear pullback))
+  [PASS] (III) bihomogeneous contraction corollary (r,s)=(2,3)  (6 weight cases incl. three vanishing (balanced, linear + nonlinear pullback))
+  [PASS] (III) bihomogeneous contraction corollary (r,s)=(2,2)  (6 weight cases incl. three vanishing (balanced, linear + nonlinear pullback))
+  [PASS] (III) bihomogeneous contraction corollary (r,s)=(1,4)  (6 weight cases incl. three vanishing (balanced, linear + nonlinear pullback))
+Kernel-of-derivation controls:
+  [PASS] (III'') ker-delta controls (external-review examples)  (0.1s)
+Cross-implementation agreement:
+  [PASS] cross-implementation agreement (r,s)=(1,1)
+  [PASS] cross-implementation agreement (r,s)=(1,2)
+  [PASS] cross-implementation agreement (r,s)=(2,1)
+  [PASS] cross-implementation agreement (r,s)=(1,3)
+  [PASS] cross-implementation agreement (r,s)=(2,2)
+  [PASS] cross-implementation agreement (r,s)=(3,1)
+Base-point signs:
+  [PASS] (IV) base-point signs 1<=r,s<=16  (256 cases, 0.0s)
+Characteristic p:
+  [PASS] (V) characteristic p | (r-s) forces det = 0 mod p  ((1,3)m2 (1,4)m3 (2,4)m2 (2,5)m3 (3,5)m2)
+Negative controls (must all FAIL-as-designed):
+  [PASS] (VI) NC1 perturbed Jacobian detected
+  [PASS] (VI) NC2 wrong sign detected
+  [PASS] (VI) NC3 wrong power detected
+  [PASS] (VI) NC4 flipped kernel vector detected
+  [PASS] (VI) NC5 transposed-bidegree confusion detected
+
+58 checks, 0 failures, total 3s [tier: default]
+versions: sympy 1.14.0 | python-flint 0.9.0 | python 3.13.5
+platform: macOS-26.5.2-arm64-arm-64bit-Mach-O | arm64
+ALL CHECKS PASSED

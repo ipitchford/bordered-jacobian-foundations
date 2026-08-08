@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "work_id": "bordered-jacobian-foundations-v0.3-candidate",
+  "title": "The bordered Jacobian of binary-form multiplication: an integral foundation for the degree-difference principle",
+  "version": "0.3-candidate",
+  "status": "unrefereed-candidate",
+  "repository": "https://github.com/ipitchford/bordered-jacobian-foundations",
+  "claims": [
+    {
+      "id": "BJ-1",
+      "scope": "full-resolution",
+      "statement_latex": "\\det\\begin{pmatrix}M\\\\v\\end{pmatrix}=(-1)^{s(r+1)+1}\\operatorname{Res}(A,B)\\langle v,\\kappa\\rangle",
+      "quantifiers": "all integers r,s >= 1, including r=s; every border row v",
+      "proof_evidence": "bordered_jacobian_foundations.pdf, Section 3",
+      "computational_evidence": "finite exact SymPy and FLINT checks only",
+      "formal_verification": "not-assessed",
+      "independent_reproduction": "not-assessed"
+    },
+    {
+      "id": "BJ-2",
+      "scope": "corollary",
+      "statement_latex": "\\det D\\Phi_{r,s}=(-1)^{s(r+1)}(r-s)\\operatorname{Res}(A,B)^2",
+      "dependency_ids": ["BJ-1"],
+      "priority_note": "statement anteceded by the July 2026 degree-difference release"
+    },
+    {
+      "id": "BJ-3",
+      "scope": "corollary",
+      "statement": "The factorisation-resultant map is etale on the coprime locus exactly when (s-r) is invertible in the base field.",
+      "dependency_ids": ["BJ-1"]
+    },
+    {
+      "id": "BJ-4",
+      "scope": "obstruction-and-localisation",
+      "statement": "A scalar pulled back from the product cannot complete the chart; at equal degrees the bordered identity survives and only the Euler weight vanishes.",
+      "dependency_ids": ["BJ-1"]
+    }
+  ],
+  "evidence": {
+    "producer_replay": "passed",
+    "deep_checks": 93,
+    "default_checks": 58,
+    "negative_controls": 5,
+    "independent_rerun": "not-assessed",
+    "independent_reimplementation": "not-assessed",
+    "formal_verification": "not-assessed",
+    "editorial_peer_review": "not-assessed",
+    "specialist_review": "partial"
+  },
+  "licence": {
+    "original_non_code": "CC0-1.0",
+    "original_code": "MIT"
+  }
+}

@@ -1,2 +1,3 @@
 import BorderedJacobian.LinearAlgebra
 import BorderedJacobian.BinaryForms
+import BorderedJacobian.AnchorMinor

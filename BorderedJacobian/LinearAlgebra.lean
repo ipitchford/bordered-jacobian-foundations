@@ -24,21 +24,19 @@ variable {R : Type*} [CommRing R]
 /-- Append a row to an `n × (n+1)` matrix. -/
 def borderLast {n : ℕ} (M : Matrix (Fin n) (Fin (n + 1)) R)
     (v : Fin (n + 1) → R) : Matrix (Fin (n + 1)) (Fin (n + 1)) R :=
-  Fin.snoc M v
+  fun i j ↦ if h : (i : ℕ) < n then M ⟨i, h⟩ j else v j
 
 @[simp]
 theorem borderLast_castSucc {n : ℕ} (M : Matrix (Fin n) (Fin (n + 1)) R)
     (v : Fin (n + 1) → R) (i : Fin n) (j : Fin (n + 1)) :
     borderLast M v i.castSucc j = M i j := by
-  change Fin.snoc M v i.castSucc j = M i j
-  rw [Fin.snoc_castSucc]
+  simp [borderLast]
 
 @[simp]
 theorem borderLast_last {n : ℕ} (M : Matrix (Fin n) (Fin (n + 1)) R)
     (v : Fin (n + 1) → R) (j : Fin (n + 1)) :
     borderLast M v (Fin.last n) j = v j := by
-  change Fin.snoc M v (Fin.last n) j = v j
-  rw [Fin.snoc_last]
+  simp [borderLast]
 
 /--
 Let `M` be an `n × (n+1)` matrix and let `κ` be a right-kernel vector.  If one coordinate

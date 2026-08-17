@@ -31,13 +31,24 @@ theorem coefficientPolynomial_map (f : R →+* S) {n : ℕ} (u : Fin (n + 1) →
     rw [coefficientPolynomial_coeff_eq_zero (fun i ↦ f (u i)) hle,
       coefficientPolynomial_coeff_eq_zero u hle, map_zero]
 
+/-- A shifted bounded coefficient vector commutes with a ring homomorphism. -/
+@[simp]
+theorem shiftedCoefficient_map (f : R →+* S) {n : ℕ}
+    (u : Fin (n + 1) → R) (d k : ℕ) :
+    ((Polynomial.X ^ d) * coefficientPolynomial (fun i ↦ f (u i))).coeff k =
+      f (((Polynomial.X ^ d) * coefficientPolynomial u).coeff k) := by
+  rw [coeff_X_pow_mul_coefficientPolynomial,
+    coeff_X_pow_mul_coefficientPolynomial]
+  rw [coefficientPolynomial_map, Polynomial.coeff_map]
+  simp [apply_ite]
+
 /-- The Euler kernel vector commutes with a ring homomorphism. -/
 @[simp]
 theorem kernelVector_map (f : R →+* S) {r s : ℕ}
     (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) (k : Fin (r + s + 2)) :
     kernelVector (fun i ↦ f (a i)) (fun j ↦ f (b j)) k = f (kernelVector a b k) := by
   simp [kernelVector, kernelTail, Fin.insertNth, Fin.succAboveCases, Fin.snoc,
-    Fin.addCases]
+    Fin.addCases, apply_ite]
 
 /-- The multiplication Jacobian commutes entrywise with a ring homomorphism. -/
 @[simp]
@@ -46,8 +57,8 @@ theorem multiplicationJacobian_map_apply (f : R →+* S) {r s : ℕ}
     (i : Fin (r + s + 1)) (j : Fin (r + s + 2)) :
     multiplicationJacobian (fun k ↦ f (a k)) (fun k ↦ f (b k)) i j =
       f (multiplicationJacobian a b i j) := by
-  simp [multiplicationJacobian, anchorMinor, coefficientPolynomial_map,
-    Fin.insertNth, Fin.succAboveCases, Fin.snoc, Fin.addCases]
+  simp [multiplicationJacobian, anchorMinor, Fin.insertNth, Fin.succAboveCases,
+    Fin.snoc, Fin.addCases, apply_ite]
 
 /-- The multiplication Jacobian itself is the entrywise image of the source matrix. -/
 theorem multiplicationJacobian_map (f : R →+* S) {r s : ℕ}

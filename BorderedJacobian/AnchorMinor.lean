@@ -52,8 +52,9 @@ theorem anchorMinor_core {r s : ℕ}
           Fin.natAdd r j.castSucc = (Fin.natAdd r j).castSucc := by
         ext
         simp
-      simp [anchorMinor, Polynomial.sylvester,
-        coeff_X_pow_mul_coefficientPolynomial, hcast]
+      simp only [Matrix.submatrix_apply, anchorMinor]
+      rw [hcast, Fin.snoc_castSucc]
+      simp [Polynomial.sylvester, coeff_X_pow_mul_coefficientPolynomial]
 
 /-- Every non-final entry in the bottom row of the anchor minor vanishes. -/
 @[simp]

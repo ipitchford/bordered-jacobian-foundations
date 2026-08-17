@@ -48,8 +48,12 @@ theorem anchorMinor_core {r s : ℕ}
       simp [anchorMinor, Polynomial.sylvester,
         coeff_X_pow_mul_coefficientPolynomial]
   | right j =>
+      have hcast :
+          Fin.natAdd r j.castSucc = (Fin.natAdd r j).castSucc := by
+        ext
+        simp
       simp [anchorMinor, Polynomial.sylvester,
-        coeff_X_pow_mul_coefficientPolynomial]
+        coeff_X_pow_mul_coefficientPolynomial, hcast]
 
 /-- Every non-final entry in the bottom row of the anchor minor vanishes. -/
 @[simp]
@@ -59,21 +63,15 @@ theorem anchorMinor_last_castSucc {r s : ℕ}
   classical
   induction j using Fin.addCases with
   | left j =>
-      simp only [anchorMinor, Fin.snoc_castSucc, Fin.addCases_left, Fin.val_last,
-        Fin.val_castSucc]
+      simp only [anchorMinor, Fin.snoc_castSucc, Fin.addCases_left, Fin.val_last]
       rw [coeff_X_pow_mul_coefficientPolynomial]
       simp only [Set.mem_Icc]
-      rw [if_neg]
-      · rfl
-      · omega
+      rw [if_neg (by omega)]
   | right j =>
-      simp only [anchorMinor, Fin.snoc_castSucc, Fin.addCases_right, Fin.val_last,
-        Fin.val_castSucc]
+      simp only [anchorMinor, Fin.snoc_castSucc, Fin.addCases_right, Fin.val_last]
       rw [coeff_X_pow_mul_coefficientPolynomial]
       simp only [Set.mem_Icc]
-      rw [if_neg]
-      · rfl
-      · omega
+      rw [if_neg (by omega)]
 
 /-- The final entry in the bottom row is the leading coefficient `aᵣ`. -/
 @[simp]

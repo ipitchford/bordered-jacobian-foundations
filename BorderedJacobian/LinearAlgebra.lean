@@ -30,13 +30,15 @@ def borderLast {n : ℕ} (M : Matrix (Fin n) (Fin (n + 1)) R)
 theorem borderLast_castSucc {n : ℕ} (M : Matrix (Fin n) (Fin (n + 1)) R)
     (v : Fin (n + 1) → R) (i : Fin n) (j : Fin (n + 1)) :
     borderLast M v i.castSucc j = M i j := by
-  simp [borderLast]
+  change Fin.snoc M v i.castSucc j = M i j
+  rw [Fin.snoc_castSucc]
 
 @[simp]
 theorem borderLast_last {n : ℕ} (M : Matrix (Fin n) (Fin (n + 1)) R)
     (v : Fin (n + 1) → R) (j : Fin (n + 1)) :
     borderLast M v (Fin.last n) j = v j := by
-  simp [borderLast]
+  change Fin.snoc M v (Fin.last n) j = v j
+  rw [Fin.snoc_last]
 
 /--
 Let `M` be an `n × (n+1)` matrix and let `κ` be a right-kernel vector.  If one coordinate
@@ -69,11 +71,14 @@ theorem det_borderLast_of_kernel_and_anchor_minor [IsDomain R] {n : ℕ}
         M.submatrix id j₀.succAbove := by
     ext i j
     simp [U, B]
+  have hsub_cast :
+      U.submatrix Fin.castSucc j₀.succAbove = M.submatrix id j₀.succAbove := by
+    simpa using hsub
   have hexpand :
       U.det = (-1 : R) ^ (n + (j₀ : ℕ)) * (∑ j, κ j * v j) *
         (M.submatrix id j₀.succAbove).det := by
-    rw [Matrix.det_succ_column, Fin.sum_univ_castSucc]
-    simp [htop, hlast, hsub]
+    rw [Matrix.det_succ_column U j₀, Fin.sum_univ_castSucc]
+    simp [htop, hlast, hsub_cast]
   change B.det = (-1 : R) ^ (n + (j₀ : ℕ)) * c * (∑ j, κ j * v j)
   apply mul_left_cancel₀ hj₀
   calc

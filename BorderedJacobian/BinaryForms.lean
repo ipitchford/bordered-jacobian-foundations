@@ -26,12 +26,22 @@ open Polynomial
 variable {R : Type*} [CommRing R]
 
 /-- The polynomial with coefficient vector `u`. -/
-noncomputable def coefficientPolynomial {n : ℕ} (u : Fin (n + 1) → R) : Polynomial R :=
-  Polynomial.ofFn (n + 1) u
+noncomputable def coefficientPolynomial {n : ℕ} (u : Fin (n + 1) → R) : Polynomial R := by
+  classical
+  exact Polynomial.ofFn (n + 1) u
 
 /-- The column occupied by `aᵣ` in the release ordering. -/
 def anchorIndex (r s : ℕ) : Fin (r + s + 2) :=
   ⟨r, by omega⟩
+
+/-- The coefficient vector after the `aᵣ` anchor is removed. -/
+def kernelTail {r s : ℕ} (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) :
+    Fin (r + s + 1) → R :=
+  Fin.snoc
+    (Fin.addCases
+      (fun i : Fin r ↦ a i.castSucc)
+      (fun j : Fin s ↦ -b j.castSucc))
+    (-b (Fin.last s))
 
 /--
 The square matrix obtained from the multiplication Jacobian by deleting the `aᵣ` column.
@@ -58,12 +68,7 @@ noncomputable def multiplicationJacobian {r s : ℕ}
 /-- The Euler kernel vector `(a₀,…,aᵣ,−b₀,…,−bₛ)`. -/
 def kernelVector {r s : ℕ} (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) :
     Fin (r + s + 2) → R :=
-  (anchorIndex r s).insertNth (a (Fin.last r))
-    (Fin.snoc
-      (Fin.addCases
-        (fun i : Fin r ↦ a i.castSucc)
-        (fun j : Fin s ↦ -b j.castSucc))
-      (-b (Fin.last s)))
+  (anchorIndex r s).insertNth (a (Fin.last r)) (kernelTail a b)
 
 /-- The release resultant convention: shifts of `A`, then shifts of `B`. -/
 noncomputable def releaseResultant {r s : ℕ}
@@ -93,12 +98,7 @@ theorem kernelVector_anchor {r s : ℕ}
 @[simp]
 theorem kernelVector_succAbove {r s : ℕ}
     (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) (j : Fin (r + s + 1)) :
-    kernelVector a b ((anchorIndex r s).succAbove j) =
-      Fin.snoc
-        (Fin.addCases
-          (fun i : Fin r ↦ a i.castSucc)
-          (fun i : Fin s ↦ -b i.castSucc))
-        (-b (Fin.last s)) j := by
+    kernelVector a b ((anchorIndex r s).succAbove j) = kernelTail a b j := by
   simp [kernelVector]
 
 @[simp]

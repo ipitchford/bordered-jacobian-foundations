@@ -2,3 +2,4 @@ import BorderedJacobian.LinearAlgebra
 import BorderedJacobian.BinaryForms
 import BorderedJacobian.AnchorMinor
 import BorderedJacobian.BorderedIdentity
+import BorderedJacobian.Naturality

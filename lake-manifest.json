@@ -111,7 +111,7 @@
    "configFile": "lakefile.toml"
   }
  ],
- "name": "bordered-jacobian",
+ "name": "bordered_jacobian",
  "lakeDir": ".lake",
  "fixedToolchain": true
 }

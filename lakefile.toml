@@ -1,4 +1,4 @@
-name = "bordered-jacobian"
+name = "bordered_jacobian"
 version = "0.1.0"
 defaultTargets = ["BorderedJacobian"]
 

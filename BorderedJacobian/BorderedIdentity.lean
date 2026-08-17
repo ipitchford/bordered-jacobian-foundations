@@ -53,7 +53,7 @@ theorem borderedJacobian_of_leadingCoeff_ne_zero {r s : ℕ}
     rw [← pow_add]
     have hexp :
         ((r + s + 1) + r) + r * s = (s * (r + 1) + 1) + 2 * r := by
-      omega
+      ring
     rw [hexp, pow_add, pow_mul]
     norm_num
   rw [hborder]

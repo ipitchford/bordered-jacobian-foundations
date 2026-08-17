@@ -36,7 +36,8 @@ theorem coefficientPolynomial_map (f : R →+* S) {n : ℕ} (u : Fin (n + 1) →
 theorem kernelVector_map (f : R →+* S) {r s : ℕ}
     (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) (k : Fin (r + s + 2)) :
     kernelVector (fun i ↦ f (a i)) (fun j ↦ f (b j)) k = f (kernelVector a b k) := by
-  simp [kernelVector, kernelTail, Fin.insertNth, Fin.snoc, Fin.addCases]
+  simp [kernelVector, kernelTail, Fin.insertNth, Fin.succAboveCases, Fin.snoc,
+    Fin.addCases]
 
 /-- The multiplication Jacobian commutes entrywise with a ring homomorphism. -/
 @[simp]
@@ -46,7 +47,7 @@ theorem multiplicationJacobian_map_apply (f : R →+* S) {r s : ℕ}
     multiplicationJacobian (fun k ↦ f (a k)) (fun k ↦ f (b k)) i j =
       f (multiplicationJacobian a b i j) := by
   simp [multiplicationJacobian, anchorMinor, coefficientPolynomial_map,
-    Fin.insertNth, Fin.snoc, Fin.addCases]
+    Fin.insertNth, Fin.succAboveCases, Fin.snoc, Fin.addCases]
 
 /-- The multiplication Jacobian itself is the entrywise image of the source matrix. -/
 theorem multiplicationJacobian_map (f : R →+* S) {r s : ℕ}

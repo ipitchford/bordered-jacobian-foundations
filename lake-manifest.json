@@ -23,7 +23,7 @@
    "name": "plausible",
    "manifestFile": "lake-manifest.json",
    "inputRev": "main",
-   "inherited": false,
+   "inherited": true,
    "configFile": "lakefile.toml"
   },
   {
@@ -35,7 +35,7 @@
    "name": "LeanSearchClient",
    "manifestFile": "lake-manifest.json",
    "inputRev": "main",
-   "inherited": false,
+   "inherited": true,
    "configFile": "lakefile.toml"
   },
   {
@@ -47,7 +47,7 @@
    "name": "importGraph",
    "manifestFile": "lake-manifest.json",
    "inputRev": "main",
-   "inherited": false,
+   "inherited": true,
    "configFile": "lakefile.toml"
   },
   {
@@ -59,7 +59,7 @@
    "name": "proofwidgets",
    "manifestFile": "lake-manifest.json",
    "inputRev": "main",
-   "inherited": false,
+   "inherited": true,
    "configFile": "lakefile.lean"
   },
   {
@@ -71,7 +71,7 @@
    "name": "aesop",
    "manifestFile": "lake-manifest.json",
    "inputRev": "master",
-   "inherited": false,
+   "inherited": true,
    "configFile": "lakefile.toml"
   },
   {
@@ -83,7 +83,7 @@
    "name": "Qq",
    "manifestFile": "lake-manifest.json",
    "inputRev": "master",
-   "inherited": false,
+   "inherited": true,
    "configFile": "lakefile.toml"
   },
   {
@@ -95,7 +95,7 @@
    "name": "batteries",
    "manifestFile": "lake-manifest.json",
    "inputRev": "main",
-   "inherited": false,
+   "inherited": true,
    "configFile": "lakefile.toml"
   },
   {

@@ -153,6 +153,7 @@ theorem kernelVector_mul_jacobian {r s : ℕ}
       simp only [Fin.addCases_left, Fin.addCases_right]
       rw [Fin.sum_univ_castSucc, Fin.sum_univ_castSucc]
       simp only [Fin.val_castSucc, Fin.val_last]
+      simp_rw [neg_mul]
       rw [Finset.sum_neg_distrib]
       ring
     _ = (coefficientPolynomial a * coefficientPolynomial b).coeff (k : ℕ) -

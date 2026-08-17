@@ -45,13 +45,45 @@ theorem shiftedCoefficient_map (f : R →+* S) {n : ℕ}
     _ = f ((((Polynomial.X : Polynomial R) ^ d) * coefficientPolynomial u).coeff k) := by
       rw [Polynomial.coeff_map]
 
+/-- The tail of the Euler kernel commutes with a ring homomorphism. -/
+theorem kernelTail_map (f : R →+* S) {r s : ℕ}
+    (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) (k : Fin (r + s + 1)) :
+    kernelTail (fun i ↦ f (a i)) (fun j ↦ f (b j)) k = f (kernelTail a b k) := by
+  refine Fin.lastCases ?_ (fun j ↦ ?_) k
+  · simp [kernelTail]
+  · induction j using Fin.addCases with
+    | left i => simp [kernelTail]
+    | right j => simp [kernelTail]
+
 /-- The Euler kernel vector commutes with a ring homomorphism. -/
 @[simp]
 theorem kernelVector_map (f : R →+* S) {r s : ℕ}
     (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) (k : Fin (r + s + 2)) :
     kernelVector (fun i ↦ f (a i)) (fun j ↦ f (b j)) k = f (kernelVector a b k) := by
-  simp [kernelVector, kernelTail, Fin.insertNth, Fin.succAboveCases, Fin.snoc,
-    Fin.addCases, apply_ite, apply_dite]
+  refine (anchorIndex r s).succAboveCases ?_ (fun j ↦ ?_) k
+  · simp
+  · simp [kernelTail_map]
+
+/-- The same kernel naturality, oriented for mapping an established identity. -/
+theorem map_kernelVector (f : R →+* S) {r s : ℕ}
+    (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) (k : Fin (r + s + 2)) :
+    f (kernelVector a b k) =
+      kernelVector (fun i ↦ f (a i)) (fun j ↦ f (b j)) k := by
+  symm
+  exact kernelVector_map f a b k
+
+/-- The anchored square minor commutes entrywise with a ring homomorphism. -/
+@[simp]
+theorem anchorMinor_map_apply (f : R →+* S) {r s : ℕ}
+    (a : Fin (r + 1) → R) (b : Fin (s + 1) → R)
+    (i : Fin (r + s + 1)) (j : Fin (r + s + 1)) :
+    anchorMinor (fun k ↦ f (a k)) (fun k ↦ f (b k)) i j =
+      f (anchorMinor a b i j) := by
+  refine Fin.lastCases ?_ (fun j ↦ ?_) j
+  · simp [anchorMinor]
+  · induction j using Fin.addCases with
+    | left j => simp [anchorMinor]
+    | right j => simp [anchorMinor]
 
 /-- The multiplication Jacobian commutes entrywise with a ring homomorphism. -/
 @[simp]
@@ -60,8 +92,9 @@ theorem multiplicationJacobian_map_apply (f : R →+* S) {r s : ℕ}
     (i : Fin (r + s + 1)) (j : Fin (r + s + 2)) :
     multiplicationJacobian (fun k ↦ f (a k)) (fun k ↦ f (b k)) i j =
       f (multiplicationJacobian a b i j) := by
-  simp [multiplicationJacobian, anchorMinor, Fin.insertNth, Fin.succAboveCases,
-    Fin.snoc, Fin.addCases, apply_ite, apply_dite]
+  refine (anchorIndex r s).succAboveCases ?_ (fun j ↦ ?_) j
+  · simp
+  · simp
 
 /-- The multiplication Jacobian itself is the entrywise image of the source matrix. -/
 theorem multiplicationJacobian_map (f : R →+* S) {r s : ℕ}
@@ -89,7 +122,8 @@ theorem map_releaseResultant (f : R →+* S) {r s : ℕ}
     (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) :
     f (releaseResultant a b) =
       releaseResultant (fun i ↦ f (a i)) (fun j ↦ f (b j)) := by
-  simp [releaseResultant, coefficientPolynomial_map,
+  simp only [releaseResultant]
+  rw [coefficientPolynomial_map, coefficientPolynomial_map,
     Polynomial.resultant_map_map]
 
 end BorderedJacobian

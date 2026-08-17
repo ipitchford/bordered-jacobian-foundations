@@ -33,6 +33,7 @@ noncomputable def coefficientPolynomial {n : ℕ} (u : Fin (n + 1) → R) : Poly
 @[simp]
 theorem coefficientPolynomial_coeff {n : ℕ} (u : Fin (n + 1) → R) (i : Fin (n + 1)) :
     (coefficientPolynomial u).coeff (i : ℕ) = u i := by
+  classical
   change (Polynomial.ofFn (n + 1) u).coeff (i : ℕ) = u i
   simpa using Polynomial.ofFn_coeff_eq_val_of_lt u i.isLt
 
@@ -151,7 +152,8 @@ theorem kernelVector_mul_jacobian {r s : ℕ}
       rw [Fin.sum_univ_add]
       simp only [Fin.addCases_left, Fin.addCases_right]
       rw [Fin.sum_univ_castSucc, Fin.sum_univ_castSucc]
-      simp only [Fin.val_castSucc, Fin.val_last, Finset.sum_neg_distrib]
+      simp only [Fin.val_castSucc, Fin.val_last]
+      rw [Finset.sum_neg_distrib]
       ring
     _ = (coefficientPolynomial a * coefficientPolynomial b).coeff (k : ℕ) -
         (coefficientPolynomial b * coefficientPolynomial a).coeff (k : ℕ) := by

@@ -27,13 +27,6 @@ jobs:
           curl -sSfL https://github.com/leanprover/elan/releases/download/v1.4.2/elan-x86_64-unknown-linux-gnu.tar.gz | tar xz
           ./elan-init -y --default-toolchain none
           echo "$HOME/.elan/bin" >> $GITHUB_PATH
-      - name: Restore Lean workspace cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.elan/toolchains
-            .lake/packages
-          key: lean-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - name: Download Mathlib cache
         shell: bash
         run: |
@@ -60,7 +53,7 @@ jobs:
           from pathlib import Path
           text = Path('lean-build.log').read_text(errors='replace')[-30000:]
           text = text.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
-          print(f'::error file=BorderedJacobian/BorderedIdentity.lean::{text}')
+          print(f'::error file=BorderedJacobian/Naturality.lean::{text}')
           PY
           fi
           exit $status

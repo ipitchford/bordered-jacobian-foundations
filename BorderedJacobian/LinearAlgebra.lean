@@ -19,7 +19,7 @@ open scoped BigOperators
 
 namespace Matrix
 
-variable {R : Type*} [CommRing R]
+variable {R : Type*}
 
 /-- Append a row to an `n × (n+1)` matrix. -/
 def borderLast {n : ℕ} (M : Matrix (Fin n) (Fin (n + 1)) R)
@@ -46,7 +46,7 @@ then bordering `M` by any row `v` gives the expected contraction formula.
 This is the abstract bookkeeping lemma behind the bordered Jacobian identity.  The domain
 hypothesis is used only to cancel the universal anchor coordinate.
 -/
-theorem det_borderLast_of_kernel_and_anchor_minor [IsDomain R] {n : ℕ}
+theorem det_borderLast_of_kernel_and_anchor_minor [CommRing R] [IsDomain R] {n : ℕ}
     (M : Matrix (Fin n) (Fin (n + 1)) R) (κ v : Fin (n + 1) → R)
     (j₀ : Fin (n + 1)) (c : R)
     (hj₀ : κ j₀ ≠ 0)

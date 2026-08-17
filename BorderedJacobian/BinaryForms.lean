@@ -30,6 +30,17 @@ noncomputable def coefficientPolynomial {n : ℕ} (u : Fin (n + 1) → R) : Poly
   classical
   exact Polynomial.ofFn (n + 1) u
 
+@[simp]
+theorem coefficientPolynomial_coeff {n : ℕ} (u : Fin (n + 1) → R) (i : Fin (n + 1)) :
+    (coefficientPolynomial u).coeff (i : ℕ) = u i := by
+  classical
+  simp [coefficientPolynomial]
+
+theorem coefficientPolynomial_coeff_eq_zero {n k : ℕ} (u : Fin (n + 1) → R)
+    (h : n + 1 ≤ k) : (coefficientPolynomial u).coeff k = 0 := by
+  classical
+  simp [coefficientPolynomial, h]
+
 /-- The column occupied by `aᵣ` in the release ordering. -/
 def anchorIndex (r s : ℕ) : Fin (r + s + 2) :=
   ⟨r, by omega⟩
@@ -108,5 +119,44 @@ theorem multiplicationJacobian_delete_anchor {r s : ℕ}
       anchorMinor a b := by
   ext i j
   simp
+
+/-- Coefficient convolution written as a finite sum of shifted copies of `q`. -/
+theorem sum_coeff_shift_mul {n : ℕ} (u : Fin (n + 1) → R) (q : Polynomial R) (k : ℕ) :
+    ∑ i : Fin (n + 1), u i * ((Polynomial.X ^ (i : ℕ)) * q).coeff k =
+      (coefficientPolynomial u * q).coeff k := by
+  classical
+  rw [coefficientPolynomial, Polynomial.ofFn_eq_sum_monomial, Finset.sum_mul,
+    Polynomial.finsetSum_coeff]
+  apply Finset.sum_congr rfl
+  intro i _
+  rw [← Polynomial.C_mul_X_pow_eq_monomial]
+  simp [mul_assoc]
+
+/-- The Euler vector is a right-kernel vector of the multiplication Jacobian. -/
+theorem kernelVector_mul_jacobian {r s : ℕ}
+    (a : Fin (r + 1) → R) (b : Fin (s + 1) → R) (k : Fin (r + s + 1)) :
+    ∑ j, kernelVector a b j * multiplicationJacobian a b k j = 0 := by
+  classical
+  calc
+    ∑ j, kernelVector a b j * multiplicationJacobian a b k j =
+        (∑ i : Fin (r + 1),
+          a i * ((Polynomial.X ^ (i : ℕ)) * coefficientPolynomial b).coeff (k : ℕ)) -
+        (∑ j : Fin (s + 1),
+          b j * ((Polynomial.X ^ (j : ℕ)) * coefficientPolynomial a).coeff (k : ℕ)) := by
+      rw [Fin.sum_univ_succAbove _ (anchorIndex r s)]
+      simp only [kernelVector_anchor, multiplicationJacobian_anchor,
+        kernelVector_succAbove, multiplicationJacobian_succAbove]
+      rw [Fin.sum_univ_castSucc]
+      simp only [kernelTail, anchorMinor, Fin.snoc_castSucc, Fin.snoc_last]
+      rw [Fin.sum_univ_add]
+      simp only [Fin.addCases_left, Fin.addCases_right]
+      rw [Fin.sum_univ_castSucc, Fin.sum_univ_castSucc]
+      ring
+    _ = (coefficientPolynomial a * coefficientPolynomial b).coeff (k : ℕ) -
+        (coefficientPolynomial b * coefficientPolynomial a).coeff (k : ℕ) := by
+      rw [sum_coeff_shift_mul, sum_coeff_shift_mul]
+    _ = 0 := by
+      rw [mul_comm]
+      simp
 
 end BorderedJacobian

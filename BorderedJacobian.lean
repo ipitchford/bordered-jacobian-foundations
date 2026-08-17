@@ -1,1 +1,2 @@
 import BorderedJacobian.LinearAlgebra
+import BorderedJacobian.BinaryForms
